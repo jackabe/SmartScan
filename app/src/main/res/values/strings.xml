@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SmartScan Connect</string>
+    <string name="scan_string">Scan For Device</string>
+</resources>
