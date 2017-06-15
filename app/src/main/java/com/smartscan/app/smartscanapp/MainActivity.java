@@ -1,26 +1,13 @@
 package com.smartscan.app.smartscanapp;
 
-import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,27 +15,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
+import com.smartscan.app.smartscanapp.fragments.DeviceFragment;
 import com.smartscan.app.smartscanapp.fragments.MainFragment;
 import com.smartscan.app.smartscanapp.fragments.ScanFragment;
-import com.smartscan.app.smartscanapp.fragments.WebFragment;
 import com.smartscan.app.smartscanapp.model.ObjectDrawerItem;
 
-import java.util.ArrayList;
-import java.util.Set;
 public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener{
 
     private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
-
     private Fragment mFragment;
 
     @Override
@@ -76,13 +56,14 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String value = mDrawerList.getItemAtPosition(position).toString();
-
+                Toast toast = Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT);
+                toast.show();
                 switch (position) {
                     case 0:
                         mFragment = new MainFragment();
                         break;
                     case 1:
-                        mFragment = new ScanFragment();
+                        mFragment = new DeviceFragment();
                         break;
                     case 2:
                         mFragment = new ScanFragment();

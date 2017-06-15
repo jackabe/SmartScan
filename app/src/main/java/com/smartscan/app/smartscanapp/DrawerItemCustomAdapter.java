@@ -55,7 +55,6 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.listview_drawer_item_row, null);
 
         }
-
         ObjectDrawerItem objectDrawerItem = mData[position];
 
         ImageView iconImageView = (ImageView) convertView.findViewById(R.id.drawer_item_icon);

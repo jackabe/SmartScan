@@ -11,7 +11,7 @@
     tools:context="com.smartscan.app.smartscanapp.MainActivity">
 
     <TextView
-        android:text="Scan For Device"
+        android:text="All Devices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -32,38 +32,13 @@
         android:id="@+id/rulerLine"
         android:background="#C6C6C6" />
 
-    <TextView
-        android:text="Currently no new device found.."
-        android:layout_width="wrap_content"
-        android:textColor="@android:color/black"
-        android:layout_alignParentRight="true"
-        android:width="150dp"
-        android:layout_alignRight="@+id/scanningButton"
-        android:layout_marginTop="80dp"
-        android:paddingRight="10dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/scanningText"
-        android:textSize="17dp" />
-
     <ListView
-        android:id="@+id/scannedListView"
+        android:id="@+id/pairedListView"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="600dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="25px"
-        android:layout_alignParentBottom="true" />
-
-    <Button
-        android:id="@+id/scanningButton"
-        android:layout_width="130dp"
-        android:textColor="@android:color/white"
-        android:layout_height="50dp"
-        android:background="@drawable/sqaure_button"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/scan_string"
-        android:layout_marginStart="7dp"
-        android:layout_below="@+id/rulerLine"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/rulerLine"/>
 
 </RelativeLayout>
