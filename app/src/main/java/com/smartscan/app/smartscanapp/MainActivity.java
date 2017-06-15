@@ -1,21 +1,29 @@
 package com.smartscan.app.smartscanapp;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothServerSocket;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,125 +34,177 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.io.IOException;
+import com.smartscan.app.smartscanapp.fragments.MainFragment;
+import com.smartscan.app.smartscanapp.fragments.ScanFragment;
+import com.smartscan.app.smartscanapp.fragments.WebFragment;
+import com.smartscan.app.smartscanapp.model.ObjectDrawerItem;
+
 import java.util.ArrayList;
 import java.util.Set;
+public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener{
 
-import static android.provider.ContactsContract.Intents.Insert.NAME;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private String mActivityTitle;
 
-public class MainActivity extends AppCompatActivity {
-
-    private TextView scanningText;
-    private ListView pairedListView;
-    private ListView scannedListView;
-    private Button scanningButton;
-    private final static int REQUEST_ENABLE_BT = 1;
-    private ArrayList<String> pairedList;
-    private ArrayList<String> scannedList;
-    private BluetoothAdapter mBluetoothAdapter;
-    private ToggleButton toggleButton;
+    private Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        pairedList = new ArrayList<>();
-        scannedList = new ArrayList<>();
-        scanningButton = (Button) findViewById(R.id.scanningButton);
-        scanningText = (TextView) findViewById(R.id.scanningText);
-        pairedListView = (ListView) findViewById(R.id.pairedListView);
-        scannedListView = (ListView) findViewById(R.id.scannedListView);
-        scannedListView.setVisibility(View.GONE);
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
+        mDrawerList = (ListView)findViewById(R.id.left_drawer);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mActivityTitle = getTitle().toString();
 
-        if (Build.VERSION.SDK_INT >= 15 &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        }
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.smartscan);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("");
 
-        if (mBluetoothAdapter == null) {
-            scanningText.setText("Your device does not support Bluetooth, Sorry!");
-        } else if (!mBluetoothAdapter.isEnabled()) {
-            scanningText.setText("You need to enable bluetooth to use this app..");
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
+        addDrawerItems();
+        setupDrawer();
 
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        mFragment = new MainFragment();
+        attachFragment();
 
-        if (pairedDevices.size() > 0) {
-            // There are paired devices. Get the name and address of each paired device.
-            for (BluetoothDevice device : pairedDevices) {
-                String deviceName = device.getName();
-                String deviceHardwareAddress = device.getAddress(); // MAC address
-                pairedList.add(device.getName() + "\n" + device.getAddress());
-            }
-            Log.i("found", pairedDevices + "");
-            pairedListView.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, pairedList));
-        }
-
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    pairedListView.setVisibility(View.GONE);
-                    scannedListView.setVisibility(View.VISIBLE);
-                } else {
-                    pairedListView.setVisibility(View.VISIBLE);
-                    scannedListView.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        scanningButton.setOnClickListener(new View.OnClickListener() {
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                scanningText.setText("Scanning...");
-                mBluetoothAdapter.startDiscovery();
-                mBluetoothAdapter.isDiscovering();
-                Toast toast = Toast.makeText(getApplicationContext(), "Found Devices!", Toast.LENGTH_LONG);
-                toast.show();
-                scanningText.setText("Click on a device to connect");
-            }
-        });
-
-        scannedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String value = mDrawerList.getItemAtPosition(position).toString();
 
-                String value = scannedListView.getItemAtPosition(position).toString();
-
-                Toast toast = Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT);
-                toast.show();
+                switch (position) {
+                    case 0:
+                        mFragment = new MainFragment();
+                        break;
+                    case 1:
+                        mFragment = new ScanFragment();
+                        break;
+                    case 2:
+                        mFragment = new ScanFragment();
+                        break;
+                    case 3:
+                        mFragment = new MainFragment();
+                        break;
+                    case 4:
+                        mFragment = new MainFragment();
+                        break;
+                }
+                attachFragment();
+                mDrawerLayout.closeDrawer(mDrawerList);
             }
         });
+    }
 
-        // Register for broadcasts when a device is discovered.
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, filter);
+    private void addDrawerItems() {
+        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[5];
+
+        drawerItem[0] = new ObjectDrawerItem(R.mipmap.ic_home_white_24dp, "Home");
+        drawerItem[1] = new ObjectDrawerItem(R.mipmap.ic_important_devices_white_24dp, "Recent Devices");
+        drawerItem[2] = new ObjectDrawerItem(R.mipmap.ic_settings_remote_white_24dp, "Start New Scan");
+        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_help_outline_white_24dp, "Help");
+        drawerItem[4] = new ObjectDrawerItem(R.mipmap.ic_settings_white_24dp, "Settings");
+
+        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(getApplicationContext(), R.layout.listview_drawer_item_row, drawerItem);
+
+        // Set the Adapter and the Listener on the ListView
+        mDrawerList.setAdapter(adapter);
+
+        // Set shadow and the default item selected in the ListView to be the first one
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        mDrawerList.setItemChecked(0,true);
+    }
+
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Navigation!");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
 
     @Override
-    protected void onDestroy() {
-        unregisterReceiver(mReceiver);
-        super.onDestroy();
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
     }
 
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            Log.i("found", "hello" + "");
-            String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                BluetoothDevice device = intent
-                        .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                scannedList.add(device.getName() + "\n" + device.getAddress());
-                Log.i("BT", device.getName() + "\n" + device.getAddress());
-                scannedListView.setAdapter(new ArrayAdapter<>(context,
-                        android.R.layout.simple_list_item_1, scannedList));
-            } else {
-                Log.i("BT", "none" + "");
-            }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
-    };
+
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    // This is where the navigation really happens.
+    // We create a switch, based on the position of the Item clicked,
+    // and simply change our Fragment Constant accordingly.
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+    }
+
+    // Our custom method to attach/replace Fragments
+    private void attachFragment() {
+        if (mFragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment).commit();
+
+        } else {
+            Log.e("MainActivity", "Error in creating fragment");
+        }
+    }
 }
+

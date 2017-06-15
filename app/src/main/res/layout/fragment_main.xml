@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_dark"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:id="@+id/thorluxImage"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/thorlux_image"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_settings_remote_white_24dp"
+        android:layout_below="@id/thorluxImage"
+        android:layout_marginTop="40dp"
+        android:id="@+id/scanImage"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SmartScan Connect"
+        android:textSize="20sp"
+        android:layout_below="@id/scanImage"
+        android:layout_marginTop="25dp"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/mainTitle" />
+
+    <Button
+        android:id="@+id/scanningButton"
+        android:layout_width="150dp"
+        android:textColor="@android:color/white"
+        android:layout_height="150dp"
+        android:background="@drawable/round_button"
+        android:text="@string/scan_string"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="20dp"/>
+
+    <Button
+        android:id="@+id/deviceButton"
+        android:layout_width="150dp"
+        android:textColor="@android:color/white"
+        android:layout_height="150dp"
+        android:background="@drawable/round_button"
+        android:text="@string/devices_string"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="20dp"/>
+
+</RelativeLayout>
