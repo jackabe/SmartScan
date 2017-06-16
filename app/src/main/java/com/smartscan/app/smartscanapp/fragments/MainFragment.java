@@ -40,7 +40,6 @@ public class MainFragment extends Fragment{
     private Fragment mFragment;
 
     public MainFragment() {
-        // Required empty public constructor
     }
 
     @Override

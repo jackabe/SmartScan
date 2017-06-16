@@ -55,9 +55,6 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String value = mDrawerList.getItemAtPosition(position).toString();
-                Toast toast = Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT);
-                toast.show();
                 switch (position) {
                     case 0:
                         mFragment = new MainFragment();
@@ -172,9 +169,6 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     // and simply change our Fragment Constant accordingly.
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
     }
 
     // Our custom method to attach/replace Fragments

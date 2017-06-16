@@ -1,5 +1,7 @@
 package com.smartscan.app.smartscanapp.model;
 
+import java.util.UUID;
+
 /**
  * Created by Jack_Allcock on 15/06/2017.
  */
@@ -8,9 +10,18 @@ public class DeviceItem {
 
     private String deviceName;
     private String deviceCode;
+    private UUID deviceId;
 
     public DeviceItem() {
 
+    }
+
+    public UUID getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(UUID deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getDeviceCode() {
