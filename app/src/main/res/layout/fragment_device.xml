@@ -41,4 +41,21 @@
         android:layout_marginTop="30dp"
         android:layout_below="@id/rulerLine"/>
 
+    <Button
+        android:text="Turn off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/pairedListView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="13dp"
+        android:id="@+id/offButton" />
+
+    <Button
+        android:text="Turn On"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/onButton" />
+
 </RelativeLayout>

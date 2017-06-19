@@ -2,10 +2,13 @@ package com.smartscan.app.smartscanapp;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.lang.reflect.Method;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +16,13 @@ import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.os.Handler;
+import android.util.JsonReader;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ConnectThread {
 
@@ -23,6 +32,7 @@ public class ConnectThread {
     private BluetoothAdapter adapter;
     private List<UUID> uuidCandidates;
     private int candidate;
+    Handler bluetoothIn;
 
 
     /**
@@ -218,18 +228,31 @@ public class ConnectThread {
 
     }
 
-    public void sendData(BluetoothSocketWrapper socket, int data) throws IOException{
-        ByteArrayOutputStream output = new ByteArrayOutputStream(4);
-        output.write(data);
-        OutputStream outputStream = socket.getOutputStream();
-        outputStream.write(output.toByteArray());
+    public void sendData(JSONObject object) throws IOException{
+        //JSONArray jsonArray = new JSONArray();
+        //jsonArray.put(x);
+        //jsonArray.put(y);
+        String jsonStr = object.toString();
+        OutputStream socketOutputStream =  bluetoothSocket.getOutputStream();
+        socketOutputStream.write(jsonStr.toString().getBytes("utf-8"));
+        Log.i("sending", jsonStr);
     }
 
-    public int receiveData(BluetoothSocketWrapper socket) throws IOException{
-        byte[] buffer = new byte[256];
-        ByteArrayInputStream input = new ByteArrayInputStream(buffer);
-        InputStream inputStream = socket.getInputStream();
-        inputStream.read(buffer);
-        return input.read();
+    public void receiveData(BluetoothSocketWrapper socket) throws IOException{
+        InputStream socketInputStream =  socket.getInputStream();
+        byte[] buffer = new byte[1024];
+        int bytes;
+
+        // Keep looping to listen for received messages
+        while (true) {
+            try {
+                bytes = socketInputStream.read(buffer);            //read bytes from input buffer
+                String readMessage = new String(buffer, 0, bytes);
+                // Send the obtained bytes to the UI Activity via handler
+                Log.i("logging", readMessage);
+            } catch (IOException e) {
+                break;
+            }
+        }
     }
 }

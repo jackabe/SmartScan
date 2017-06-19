@@ -141,7 +141,7 @@ public class ScanFragment extends Fragment {
                 uuidCandidates.add(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                 ConnectThread connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates);
                 try {
-                    Log.i("logging", connectThread.receiveData(connectThread.connect()) + "");
+                    connectThread.connect();
                 } catch (IOException e) {
 
                 }
