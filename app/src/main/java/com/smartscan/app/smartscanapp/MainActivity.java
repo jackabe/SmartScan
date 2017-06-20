@@ -2,7 +2,11 @@ package com.smartscan.app.smartscanapp;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.res.Configuration;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,10 +22,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.smartscan.app.smartscanapp.fragments.ControlFragment;
 import com.smartscan.app.smartscanapp.fragments.DeviceFragment;
 import com.smartscan.app.smartscanapp.fragments.MainFragment;
 import com.smartscan.app.smartscanapp.fragments.ScanFragment;
+import com.smartscan.app.smartscanapp.fragments.StatusTextFragment;
 import com.smartscan.app.smartscanapp.model.ObjectDrawerItem;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener{
 
@@ -30,6 +41,14 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
     private Fragment mFragment;
+    private BluetoothDevice device;
+
+    private ConnectThread connectThread;
+    private BluetoothAdapter mBluetoothAdapter;
+    private List<UUID> uuidCandidates;
+    private BluetoothDevice deviceToBeSent;
+    private StatusTextFragment fragment;
+    MessageInterface messageInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,5 +203,69 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
+
+    protected OnBackPressedListener onBackPressedListener;
+
+    public interface OnBackPressedListener {
+        void doBack();
+    }
+
+    public void setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
+        this.onBackPressedListener = onBackPressedListener;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (onBackPressedListener != null) {
+            onBackPressedListener.doBack();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        onBackPressedListener = null;
+        super.onDestroy();
+    }
+
+    public void setDevice(BluetoothDevice device) {
+        this.device = device;
+    }
+
+    public BluetoothDevice getDevice() {
+        return device;
+    }
+
+    public void setMessage(MessageInterface messageInterface) {
+        this.messageInterface = messageInterface;
+    }
+
+    public void connectToDevice() {
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        uuidCandidates = new ArrayList<>();
+        uuidCandidates.add(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+        connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates, messageInterface);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                deviceToBeSent = device;
+                connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates, messageInterface);
+                try {
+                    connectThread.connect();
+                } catch (IOException e) {
+
+                }
+            }
+        }).start();
+    }
+
+    public ConnectThread getConnection() {
+        return connectThread;
+    }
+
 }
 

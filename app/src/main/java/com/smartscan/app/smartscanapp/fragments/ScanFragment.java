@@ -31,6 +31,7 @@ import android.widget.ToggleButton;
 
 import com.smartscan.app.smartscanapp.ConnectThread;
 import com.smartscan.app.smartscanapp.DeviceCustomAdapter;
+import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.DeviceItem;
 
@@ -128,10 +129,8 @@ public class ScanFragment extends Fragment {
                 toast.show();
                 mBluetoothAdapter.cancelDiscovery();
 
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("Device", device);
+                ((MainActivity)getActivity()).setDevice(device);
                 mFragment = new ControlFragment();
-                mFragment.setArguments(bundle);
                 attachFragment();
             }
         });

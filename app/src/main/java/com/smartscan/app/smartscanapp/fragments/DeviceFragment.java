@@ -31,6 +31,8 @@ import android.widget.ToggleButton;
 import com.smartscan.app.smartscanapp.ConnectThread;
 import com.smartscan.app.smartscanapp.DeviceCustomAdapter;
 import com.smartscan.app.smartscanapp.DrawerItemCustomAdapter;
+import com.smartscan.app.smartscanapp.MainActivity;
+import com.smartscan.app.smartscanapp.MessageInterface;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.DeviceItem;
 
@@ -129,10 +131,8 @@ public class DeviceFragment extends Fragment{
                 toast.show();
                 mBluetoothAdapter.cancelDiscovery();
 
-                Bundle theDevice = new Bundle();
-                theDevice.putParcelable("Device", device);
+                ((MainActivity)getActivity()).setDevice(device);
                 mFragment = new ControlFragment();
-                mFragment.setArguments(theDevice);
                 attachFragment();
             }
         });
@@ -141,12 +141,13 @@ public class DeviceFragment extends Fragment{
     private void attachFragment() {
         if (mFragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment, "Control").commit();
 
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
+
 }
 
 

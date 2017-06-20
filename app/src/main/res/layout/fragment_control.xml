@@ -10,70 +10,23 @@
     android:background="@android:color/white"
     tools:context="com.smartscan.app.smartscanapp.MainActivity">
 
-    <TextView
-        android:text="Control Panel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="490dp"
+        android:layout_marginTop="-10dp"
+        android:id="@+id/optionListView"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:id="@+id/deviceText"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:gravity="center"
-        android:layout_alignParentEnd="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+        android:layout_marginBottom="70dp"/>
 
-    <Button
-        android:text="Turn On"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/deviceText"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="35dp"
-        android:id="@+id/onButton" />
 
-    <Button
-        android:text="Turn Off"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="46dp"
-        android:id="@+id/offButton"
-        android:layout_alignBaseline="@+id/onButton"
-        android:layout_alignBottom="@+id/onButton"
-        android:layout_alignParentEnd="true" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+    <fragment
+        android:id="@+id/statusTextFragment"
+        android:name="com.smartscan.app.smartscanapp.fragments.StatusTextFragment"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:text="Status:"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="15dp"
-            android:id="@+id/statusTitle" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="17dp"
-            android:id="@+id/statusText"
-            android:layout_alignBaseline="@+id/statusTitle"
-            android:layout_alignBottom="@+id/statusTitle"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

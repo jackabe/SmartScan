@@ -39,7 +39,6 @@ import com.smartscan.app.smartscanapp.MessageInterface;
 import com.smartscan.app.smartscanapp.OptionAdapter;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.Control;
-import com.smartscan.app.smartscanapp.model.Option;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,31 +51,21 @@ import java.util.UUID;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ControlFragment extends Fragment {
+public class StatusTextFragment extends Fragment implements MainActivity.OnBackPressedListener{
 
     private Fragment mFragment;
-    ConnectThread connectThread;
-    BluetoothDevice device;
-    BluetoothAdapter mBluetoothAdapter;
-    List<UUID> uuidCandidates;
-    BluetoothDevice deviceToBeSent;
-    TextView statusText;
-    String message;
-    MessageInterface messageInterface;
-    private ListView optionListView;
-    private Control control;
-    private OptionAdapter adapter;
-    private Option option;
-    StatusTextFragment fragment;
+    private TextView statusText;
+    private MessageInterface messageInterface;
 
-    public ControlFragment() {
+    public StatusTextFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_control, container, false);
+        ((MainActivity) getActivity()).setOnBackPressedListener(this);
+        return inflater.inflate(R.layout.fragment_status_bar, container, false);
     }
 
     @Override
@@ -85,31 +74,22 @@ public class ControlFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         super.onActivityCreated(savedInstanceState);
 
-        optionListView = (ListView) getActivity().findViewById(R.id.optionListView);
+        statusText = (TextView) getActivity().findViewById(R.id.statusText);
+        ((MainActivity)getActivity()).setMessage(messageInterface);
 
-        optionListView = (ListView) getActivity().findViewById(R.id.optionListView);
-
-        control = new Control();
-        adapter = new OptionAdapter(
-                getActivity().getApplicationContext(), control.populateOptions());
-        optionListView.setAdapter(adapter);
-
-        optionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(final AdapterView<?> parent, View view, int position, long id) {
-
-                option = control.populateOptions().get(position);
-                switch (option) {
-                    case STATE:
-                        mFragment = new PowerFragment();
-                        attachFragment();
-                        break;
-                    default:
-                        break;
-                }
+        messageInterface = new MessageInterface() {
+            @Override
+            public void sendData(final String str) {
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        statusText.setText(str);
+                    }
+                });
             }
-        });
+        };
 
-        ((MainActivity)getActivity()).connectToDevice();
     }
 
     // Our custom method to attach/replace Fragments
@@ -121,5 +101,15 @@ public class ControlFragment extends Fragment {
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }
+    }
+
+    @Override
+    public void doBack() {
+        mFragment = new ControlFragment();
+        attachFragment();
+    }
+
+    public MessageInterface getMessage() {
+        return  messageInterface;
     }
 }
