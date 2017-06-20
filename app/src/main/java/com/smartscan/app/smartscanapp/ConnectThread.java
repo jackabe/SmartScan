@@ -16,9 +16,15 @@ import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.TextView;
+
+import com.smartscan.app.smartscanapp.fragments.ControlFragment;
+import com.smartscan.app.smartscanapp.fragments.MainFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +39,7 @@ public class ConnectThread {
     private List<UUID> uuidCandidates;
     private int candidate;
     Handler bluetoothIn;
+    MessageInterface message;
 
 
     /**
@@ -42,11 +49,12 @@ public class ConnectThread {
      * @param uuidCandidates a list of UUIDs. if null or empty, the Serial PP id is used
      */
     public ConnectThread(BluetoothDevice device, boolean secure, BluetoothAdapter adapter,
-                              List<UUID> uuidCandidates) {
+                              List<UUID> uuidCandidates, MessageInterface messageInterface) {
         this.device = device;
         this.secure = secure;
         this.adapter = adapter;
         this.uuidCandidates = uuidCandidates;
+        this.message = messageInterface;
 
         if (this.uuidCandidates == null || this.uuidCandidates.isEmpty()) {
             this.uuidCandidates = new ArrayList<UUID>();
@@ -124,7 +132,6 @@ public class ConnectThread {
         BluetoothSocket getUnderlyingSocket();
 
     }
-
 
     public static class NativeBluetoothSocket implements BluetoothSocketWrapper {
 
@@ -238,21 +245,40 @@ public class ConnectThread {
         Log.i("sending", jsonStr);
     }
 
-    public void receiveData(BluetoothSocketWrapper socket) throws IOException{
+    public boolean receiveData(BluetoothSocketWrapper socket) throws IOException{
         InputStream socketInputStream =  socket.getInputStream();
         byte[] buffer = new byte[1024];
         int bytes;
+        int numBytes;
 
         // Keep looping to listen for received messages
         while (true) {
             try {
                 bytes = socketInputStream.read(buffer);            //read bytes from input buffer
                 String readMessage = new String(buffer, 0, bytes);
-                // Send the obtained bytes to the UI Activity via handler
                 Log.i("logging", readMessage);
+
+                if (readMessage.contains("Received 86")) {
+                    if (readMessage.contains("Received 86 C0")) {
+                        Log.i("check", "Okay");
+                        message.sendData("Success! - Turned on");
+                    }
+                    else if (readMessage.contains("Received 86 00")) {
+                        Log.i("check", "Okay");
+                        message.sendData("Sucess! - Turned Off");
+                    }
+                    else {
+                        message.sendData("Failed!");
+                    }
+                }
+
+                else {
+
+                }
             } catch (IOException e) {
                 break;
             }
         }
+        return false;
     }
 }

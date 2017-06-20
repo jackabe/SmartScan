@@ -11,7 +11,7 @@
     tools:context="com.smartscan.app.smartscanapp.MainActivity">
 
     <TextView
-        android:text="All Devices"
+        android:text="Control Panel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -25,20 +25,24 @@
         android:layout_alignParentEnd="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@id/deviceText"
-        android:id="@+id/rulerLine"
-        android:background="#C6C6C6" />
+    <Button
+        android:text="Turn On"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deviceText"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="35dp"
+        android:id="@+id/button2" />
 
-    <ListView
-        android:id="@+id/pairedListView"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="25px"
-        android:layout_marginTop="30dp"
-        android:layout_below="@id/rulerLine"/>
+    <Button
+        android:text="Turn Off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="46dp"
+        android:id="@+id/button3"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.smartscan.app.smartscanapp.fragments;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
@@ -59,12 +60,9 @@ public class DeviceFragment extends Fragment{
     DeviceCustomAdapter adapter;
     BluetoothDevice device;
     ArrayList<BluetoothDevice> devices;
-    List<UUID> uuidCandidates;
-    Button offButton;
-    Button onButton;
-    BluetoothDevice deviceToBeSent;
     String name;
 
+    private Fragment mFragment;
     ConnectThread connectThread;
 
     public DeviceFragment() {
@@ -89,10 +87,6 @@ public class DeviceFragment extends Fragment{
         pairedListView = (ListView) getActivity().findViewById(R.id.pairedListView);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         devices = new ArrayList<>();
-        uuidCandidates = new ArrayList<UUID>();
-        offButton = (Button)getActivity().findViewById(R.id.offButton);
-        onButton = (Button)getActivity().findViewById(R.id.onButton);
-        uuidCandidates.add(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
 
         if (Build.VERSION.SDK_INT >= 15 &&
                 ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -131,66 +125,27 @@ public class DeviceFragment extends Fragment{
                 device = devices.get(position);
                 item = pairedList.get(position);
                 name = pairedList.get(position).getDeviceName();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        deviceToBeSent = device;
-//                        Toast toast = Toast.makeText(frag.getActivity().getApplicationContext(), "Connecting to " + item.getDeviceCode() + "" + name, Toast.LENGTH_SHORT);
-//                        toast.show();
-                        mBluetoothAdapter.cancelDiscovery();
-                        connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates);
-                        try {
-                            connectThread.connect();
-                        } catch (IOException e) {
-
-                        }
-                    }
-                }).start();
-            }
-        });
-
-        offButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "turning off", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Connecting to " + item.getDeviceName() + "" + name, Toast.LENGTH_LONG);
                 toast.show();
-                JSONObject turnOff = new JSONObject();
-                try {
-                    turnOff.put("I1", "1500");
-                    try {
-                        connectThread.sendData(turnOff);
-                    } catch (IOException e) {
+                mBluetoothAdapter.cancelDiscovery();
 
-                    }
-
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                Bundle theDevice = new Bundle();
+                theDevice.putParcelable("Device", device);
+                mFragment = new ControlFragment();
+                mFragment.setArguments(theDevice);
+                attachFragment();
             }
         });
+    }
 
-        onButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "turning oN", Toast.LENGTH_SHORT);
-                toast.show();
-                JSONObject turnOn = new JSONObject();
-                try {
-                    turnOn.put("I1", "15FF");
-                    try {
-                        connectThread.sendData(turnOn);
-                    } catch (IOException e) {
+    private void attachFragment() {
+        if (mFragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment).commit();
 
-                    }
-
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        });
-
+        } else {
+            Log.e("MainActivity", "Error in creating fragment");
+        }
     }
 }
 
