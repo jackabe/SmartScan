@@ -48,14 +48,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StatusTextFragment extends Fragment implements MainActivity.OnBackPressedListener{
+public class StatusTextFragment extends Fragment implements MainActivity.OnBackPressedListener {
 
     private Fragment mFragment;
     private TextView statusText;
-    private MessageInterface messageInterface;
 
     public StatusTextFragment() {
     }
@@ -75,21 +76,6 @@ public class StatusTextFragment extends Fragment implements MainActivity.OnBackP
         super.onActivityCreated(savedInstanceState);
 
         statusText = (TextView) getActivity().findViewById(R.id.statusText);
-        ((MainActivity)getActivity()).setMessage(messageInterface);
-
-        messageInterface = new MessageInterface() {
-            @Override
-            public void sendData(final String str) {
-                Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        statusText.setText(str);
-                    }
-                });
-            }
-        };
-
     }
 
     // Our custom method to attach/replace Fragments
@@ -109,7 +95,22 @@ public class StatusTextFragment extends Fragment implements MainActivity.OnBackP
         attachFragment();
     }
 
-    public MessageInterface getMessage() {
-        return  messageInterface;
+    // This method will be called when a HelloWorldEvent is posted
+    public void onEventMainThread (com.smartscan.app.smartscanapp.model.Message event){
+        // your implementation
+        statusText.setText(event.getMessage());
     }
+
+    @Override
+    public void onStart() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
 }

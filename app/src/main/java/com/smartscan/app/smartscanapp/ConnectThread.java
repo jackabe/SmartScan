@@ -30,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.greenrobot.event.EventBus;
+
 public class ConnectThread {
 
     private BluetoothSocketWrapper bluetoothSocket;
@@ -38,9 +40,6 @@ public class ConnectThread {
     private BluetoothAdapter adapter;
     private List<UUID> uuidCandidates;
     private int candidate;
-    Handler bluetoothIn;
-    MessageInterface message;
-
 
     /**
      * @param device the device
@@ -49,12 +48,11 @@ public class ConnectThread {
      * @param uuidCandidates a list of UUIDs. if null or empty, the Serial PP id is used
      */
     public ConnectThread(BluetoothDevice device, boolean secure, BluetoothAdapter adapter,
-                              List<UUID> uuidCandidates, MessageInterface messageInterface) {
+                              List<UUID> uuidCandidates) {
         this.device = device;
         this.secure = secure;
         this.adapter = adapter;
         this.uuidCandidates = uuidCandidates;
-        this.message = messageInterface;
 
         if (this.uuidCandidates == null || this.uuidCandidates.isEmpty()) {
             this.uuidCandidates = new ArrayList<UUID>();
@@ -261,14 +259,14 @@ public class ConnectThread {
                 if (readMessage.contains("Received 86")) {
                     if (readMessage.contains("Received 86 C0")) {
                         Log.i("check", "Okay");
-                        message.sendData("Success! - Turned on");
+                        EventBus.getDefault().post(new com.smartscan.app.smartscanapp.model.Message("Success! - Turned On"));
                     }
                     else if (readMessage.contains("Received 86 00")) {
                         Log.i("check", "Okay");
-                        message.sendData("Sucess! - Turned Off");
+                        EventBus.getDefault().post(new com.smartscan.app.smartscanapp.model.Message("Success! - Turned Off"));
                     }
                     else {
-                        message.sendData("Failed!");
+                        EventBus.getDefault().post(new com.smartscan.app.smartscanapp.model.Message("Failed!"));
                     }
                 }
 
@@ -281,4 +279,9 @@ public class ConnectThread {
         }
         return false;
     }
+
+    public void close() throws IOException {
+        bluetoothSocket.close();
+    }
+
 }

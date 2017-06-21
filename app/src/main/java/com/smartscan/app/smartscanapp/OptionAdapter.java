@@ -90,10 +90,25 @@ public class OptionAdapter extends BaseAdapter {
                 break;
             case ADDRESSES: optionImage.setImageResource(R.mipmap.notebook);
                 break;
+            case TEMPLATES: optionImage.setImageResource(R.mipmap.web);
+                break;
+            case SYSTEM: optionImage.setImageResource(R.mipmap.analytics);
+                break;
+            case MISCELLANEOUS: optionImage.setImageResource(R.mipmap.rgb);
+                break;
 
+            // Actions for STATE
+
+            case TURNON: optionImage.setImageResource(R.mipmap.power_button_on);
+                break;
+            case TURNOFF: optionImage.setImageResource(R.mipmap.power_button_off);
+                break;
+            case ENABLE: optionImage.setImageResource(R.mipmap.like);
+                break;
+            case DISABLE: optionImage.setImageResource(R.mipmap.thumb_down);
+                break;
 
         }
-
 
         optionName.setText(name);
         optionDesc.setText(option.getOptionDesc());

@@ -9,9 +9,11 @@ import java.util.ArrayList;
 public class Control {
 
     private ArrayList<Option> options;
+    private ArrayList<Option> actions;
 
     public Control() {
         this.options = new ArrayList<>();
+        this.actions = new ArrayList<>();
     }
 
     public ArrayList<Option> populateOptions() {
@@ -21,7 +23,18 @@ public class Control {
         options.add(Option.INTENSITY);
         options.add(Option.STATUS);
         options.add(Option.ADDRESSES);
+        options.add(Option.TEMPLATES);
+        options.add(Option.SYSTEM);
+        options.add(Option.MISCELLANEOUS);
 
         return options;
+    }
+
+    public ArrayList<Option> populateActions() {
+        actions.add(Option.TURNON);
+        actions.add(Option.TURNOFF);
+        actions.add(Option.ENABLE);
+        actions.add(Option.DISABLE);
+        return actions;
     }
 }

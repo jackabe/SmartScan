@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import de.greenrobot.event.EventBus;
+
 public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener{
 
     private ListView mDrawerList;
@@ -48,12 +50,15 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     private List<UUID> uuidCandidates;
     private BluetoothDevice deviceToBeSent;
     private StatusTextFragment fragment;
-    MessageInterface messageInterface;
+    private MessageInterface messageInterface = MessageInterface.getInstance();
+    EventBus myEventBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myEventBus = EventBus.getDefault();
 
         mDrawerList = (ListView)findViewById(R.id.left_drawer);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -238,22 +243,18 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         return device;
     }
 
-    public void setMessage(MessageInterface messageInterface) {
-        this.messageInterface = messageInterface;
-    }
-
     public void connectToDevice() {
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         uuidCandidates = new ArrayList<>();
         uuidCandidates.add(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-        connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates, messageInterface);
+        connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 deviceToBeSent = device;
-                connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates, messageInterface);
+                connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates);
                 try {
                     connectThread.connect();
                 } catch (IOException e) {

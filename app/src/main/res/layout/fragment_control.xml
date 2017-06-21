@@ -3,30 +3,14 @@
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@android:color/white"
     tools:context="com.smartscan.app.smartscanapp.MainActivity">
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="490dp"
-        android:layout_marginTop="-10dp"
+        android:layout_height="match_parent"
         android:id="@+id/optionListView"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="70dp"/>
-
-
-    <fragment
-        android:id="@+id/statusTextFragment"
-        android:name="com.smartscan.app.smartscanapp.fragments.StatusTextFragment"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/colorPrimary"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

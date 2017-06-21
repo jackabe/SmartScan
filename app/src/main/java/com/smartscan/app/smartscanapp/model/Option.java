@@ -6,12 +6,22 @@ package com.smartscan.app.smartscanapp.model;
 
 public enum Option {
 
+    // The BELOW are main OPTIONS.
     STATE("Power Options", "Turn on and off, view battery.."),
     SCENES("Scenes", "Create and change light scenes"),
     MOTION("Motion", "Adjust the light motion settings"),
     INTENSITY("Intensity", "Alter intensity of the light"),
     STATUS("Status", "Monitor light status"),
-    ADDRESSES("Addresses", "Change light addresses, E.g. group, building..");
+    ADDRESSES("Addresses", "Change light addresses, E.g. group, building.."),
+    TEMPLATES("Templates", "Attach pre-defined settings to light.."),
+    SYSTEM("System Testing", "Test functionality of the light"),
+    MISCELLANEOUS("Miscellaneous", "Extra functions not listed in the options above"),
+
+    // These BELOW are all actions related to STATE
+    TURNOFF("Turn The Fitting Off", "Clicking here will turn the device off"),
+    TURNON("Turn the Fitting On", "Clicking here will turn the device on"),
+    ENABLE("Enable Fitting", "Enable the functionality of the device"),
+    DISABLE("Disable Fitting", "Disable the functionality of the device");
 
     private final String optionName;
     private final String optionDesc;
