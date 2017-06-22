@@ -40,6 +40,7 @@ import com.smartscan.app.smartscanapp.OptionAdapter;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.Control;
 import com.smartscan.app.smartscanapp.model.Option;
+import com.smartscan.app.smartscanapp.model.SendData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +64,7 @@ public class PowerFragment extends Fragment implements MainActivity.OnBackPresse
     private ConnectThread connectThread;
     private TextView statusText;
     private ArrayList<Option>actions;
+    private SendData dataSender;
 
     public PowerFragment() {
     }
@@ -98,40 +100,17 @@ public class PowerFragment extends Fragment implements MainActivity.OnBackPresse
 
                 option = actions.get(position);
                 switch (option) {
-                    case TURNON:
-                        Toast onToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting Turn On", Toast.LENGTH_SHORT);
+                    case ENABLE:
+                        dataSender = new SendData(connectThread);
+                        dataSender.sendData("I1", "06C0");
+                        Toast onToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting Enable", Toast.LENGTH_SHORT);
                         onToast.show();
-                        JSONObject turnOn = new JSONObject();
-                        try {
-                            turnOn.put("I1", "06C0");
-                            try {
-                                connectThread.sendData(turnOn);
-                                statusText.setTextColor(Color.GREEN);
-                            } catch (IOException e) {
-
-                            }
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
                         break;
-                    case TURNOFF:
-                        Toast toastOff = Toast.makeText(getActivity().getApplicationContext(), "Attempting Turn Off", Toast.LENGTH_SHORT);
+                    case DISABLE:
+                        dataSender = new SendData(connectThread);
+                        dataSender.sendData("I1", "0600");
+                        Toast toastOff = Toast.makeText(getActivity().getApplicationContext(), "Attempting Disable", Toast.LENGTH_SHORT);
                         toastOff.show();
-                        JSONObject turnOff = new JSONObject();
-                        try {
-                            turnOff.put("I1", "0600");
-                            try {
-                                connectThread.sendData(turnOff);
-                                statusText.setTextColor(Color.GREEN);
-                            } catch (IOException e) {
-
-                            }
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        break;
                     default:
                         break;
                 }

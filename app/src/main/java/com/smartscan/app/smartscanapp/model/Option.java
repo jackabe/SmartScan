@@ -39,33 +39,5 @@ public enum Option {
         return optionDesc;
     }
 
-    public String getName(String optionName) {
-        try {
-            for (Option option : Option.values()) {
-                if (option.optionName.equals(optionName)) {
-                    return option.getOptionName();
-                }
-            }
-            throw new IllegalArgumentException("Couldn't get option");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Caught an error..." + e.getMessage());
-        }
-        return "";
-    }
-
-    public String getDescription(String optionName) {
-        try {
-            for (Option option : Option.values()) {
-                if (option.optionName.equals(optionName)) {
-                    return option.getOptionDesc();
-                }
-            }
-            throw new IllegalArgumentException("Couldn't get option");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Caught an error..." + e.getMessage());
-        }
-        return "";
-    }
-
 }
 
