@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import com.smartscan.app.smartscanapp.fragments.ControlFragment;
 import com.smartscan.app.smartscanapp.fragments.MainFragment;
+import com.smartscan.app.smartscanapp.model.DeviceMessageListener;
+import com.smartscan.app.smartscanapp.model.MessageSystem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +42,7 @@ public class ConnectThread {
     private BluetoothAdapter adapter;
     private List<UUID> uuidCandidates;
     private int candidate;
+    private DeviceMessageListener messageListener;
 
     /**
      * @param device the device
@@ -53,6 +56,7 @@ public class ConnectThread {
         this.secure = secure;
         this.adapter = adapter;
         this.uuidCandidates = uuidCandidates;
+        this.messageListener = new DeviceMessageListener();
 
         if (this.uuidCandidates == null || this.uuidCandidates.isEmpty()) {
             this.uuidCandidates = new ArrayList<UUID>();
@@ -234,9 +238,6 @@ public class ConnectThread {
     }
 
     public void sendData(JSONObject object) throws IOException{
-        //JSONArray jsonArray = new JSONArray();
-        //jsonArray.put(x);
-        //jsonArray.put(y);
         String jsonStr = object.toString();
         OutputStream socketOutputStream =  bluetoothSocket.getOutputStream();
         socketOutputStream.write(jsonStr.toString().getBytes("utf-8"));
@@ -247,32 +248,15 @@ public class ConnectThread {
         InputStream socketInputStream =  socket.getInputStream();
         byte[] buffer = new byte[1024];
         int bytes;
-        int numBytes;
 
         // Keep looping to listen for received messages
         while (true) {
             try {
                 bytes = socketInputStream.read(buffer);            //read bytes from input buffer
                 String readMessage = new String(buffer, 0, bytes);
+                messageListener.checkMessages(readMessage);
                 Log.i("logging", readMessage);
 
-                if (readMessage.contains("Received 86")) {
-                    if (readMessage.contains("Received 86 C0")) {
-                        Log.i("check", "Okay");
-                        EventBus.getDefault().post(new com.smartscan.app.smartscanapp.model.Message("Success! - Turned On"));
-                    }
-                    else if (readMessage.contains("Received 86 00")) {
-                        Log.i("check", "Okay");
-                        EventBus.getDefault().post(new com.smartscan.app.smartscanapp.model.Message("Success! - Turned Off"));
-                    }
-                    else {
-                        EventBus.getDefault().post(new com.smartscan.app.smartscanapp.model.Message("Failed!"));
-                    }
-                }
-
-                else {
-
-                }
             } catch (IOException e) {
                 break;
             }

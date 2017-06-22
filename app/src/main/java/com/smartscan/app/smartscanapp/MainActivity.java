@@ -5,8 +5,6 @@ import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.res.Configuration;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,16 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.smartscan.app.smartscanapp.fragments.ControlFragment;
+import com.smartscan.app.smartscanapp.Adapters.DrawerItemCustomAdapter;
 import com.smartscan.app.smartscanapp.fragments.DeviceFragment;
 import com.smartscan.app.smartscanapp.fragments.MainFragment;
 import com.smartscan.app.smartscanapp.fragments.ScanFragment;
 import com.smartscan.app.smartscanapp.fragments.StatusTextFragment;
+import com.smartscan.app.smartscanapp.fragments.TemplateHome;
 import com.smartscan.app.smartscanapp.model.ObjectDrawerItem;
 
 import java.io.IOException;
@@ -50,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     private List<UUID> uuidCandidates;
     private BluetoothDevice deviceToBeSent;
     private StatusTextFragment fragment;
-    private MessageInterface messageInterface = MessageInterface.getInstance();
     EventBus myEventBus;
 
     @Override
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
                         mFragment = new ScanFragment();
                         break;
                     case 3:
-                        mFragment = new MainFragment();
+                        mFragment = new TemplateHome();
                         break;
                     case 4:
                         mFragment = new MainFragment();

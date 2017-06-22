@@ -27,18 +27,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import com.smartscan.app.smartscanapp.ConnectThread;
-import com.smartscan.app.smartscanapp.DeviceCustomAdapter;
+import com.smartscan.app.smartscanapp.Adapters.DeviceCustomAdapter;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.DeviceItem;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -4,51 +4,27 @@ package com.smartscan.app.smartscanapp.fragments;
  * Created by Jack_Allcock on 15/06/2017.
  */
 
-import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.smartscan.app.smartscanapp.ConnectThread;
-import com.smartscan.app.smartscanapp.DeviceCustomAdapter;
 import com.smartscan.app.smartscanapp.MainActivity;
-import com.smartscan.app.smartscanapp.MessageInterface;
-import com.smartscan.app.smartscanapp.OptionAdapter;
+import com.smartscan.app.smartscanapp.Adapters.OptionAdapter;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.Control;
 import com.smartscan.app.smartscanapp.model.Option;
 import com.smartscan.app.smartscanapp.model.SendData;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,17 +76,29 @@ public class PowerFragment extends Fragment implements MainActivity.OnBackPresse
 
                 option = actions.get(position);
                 switch (option) {
+                    case TURNON:
+                        dataSender = new SendData(connectThread);
+                        dataSender.sendData("I1", "0BFF");
+                        Toast onToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting To Turn On", Toast.LENGTH_SHORT);
+                        onToast.show();
+                        break;
+                    case TURNOFF:
+                        dataSender = new SendData(connectThread);
+                        dataSender.sendData("I1", "0B00");
+                        Toast offToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting To Turn Off", Toast.LENGTH_SHORT);
+                        offToast.show();
+                        break;
                     case ENABLE:
                         dataSender = new SendData(connectThread);
                         dataSender.sendData("I1", "06C0");
-                        Toast onToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting Enable", Toast.LENGTH_SHORT);
-                        onToast.show();
+                        Toast enableToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting Enable", Toast.LENGTH_SHORT);
+                        enableToast.show();
                         break;
                     case DISABLE:
                         dataSender = new SendData(connectThread);
                         dataSender.sendData("I1", "0600");
-                        Toast toastOff = Toast.makeText(getActivity().getApplicationContext(), "Attempting Disable", Toast.LENGTH_SHORT);
-                        toastOff.show();
+                        Toast disableToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting Disable", Toast.LENGTH_SHORT);
+                        disableToast.show();
                     default:
                         break;
                 }

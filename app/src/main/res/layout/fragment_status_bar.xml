@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textSize="14dp"
         android:width="200dp"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textColor="@android:color/holo_orange_light"
         android:gravity="center"
         android:paddingRight="15dp"
         android:layout_alignTop="@+id/statusLabel"

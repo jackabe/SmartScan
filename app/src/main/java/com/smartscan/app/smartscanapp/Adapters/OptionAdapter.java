@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp;
+package com.smartscan.app.smartscanapp.Adapters;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.DeviceItem;
 import com.smartscan.app.smartscanapp.model.ObjectDrawerItem;
 import com.smartscan.app.smartscanapp.model.Option;

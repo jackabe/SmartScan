@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.smartscan.app.smartscanapp.MainActivity;
-import com.smartscan.app.smartscanapp.OptionAdapter;
+import com.smartscan.app.smartscanapp.Adapters.OptionAdapter;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.Control;
 import com.smartscan.app.smartscanapp.model.Option;
