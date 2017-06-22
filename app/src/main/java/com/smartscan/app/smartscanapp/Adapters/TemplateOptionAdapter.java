@@ -9,11 +9,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.smartscan.app.smartscanapp.Database.DBConnector;
@@ -22,22 +24,22 @@ import com.smartscan.app.smartscanapp.fragments.TemplateHome;
 import com.smartscan.app.smartscanapp.fragments.ViewTemplate;
 import com.smartscan.app.smartscanapp.model.Option;
 import com.smartscan.app.smartscanapp.model.Template;
+import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 
-public class TemplatesViewAdapter extends BaseAdapter {
+public class TemplateOptionAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<Template> templateList;
-    private DBConnector dbConnector;
+    private ArrayList<Option> templateList;
     private String name;
-    private TemplateHome fragment;
+    private Template template;
+    private Boolean checked;
 
-    public TemplatesViewAdapter(Context context, ArrayList<Template> list, TemplateHome fragment) {
+    public TemplateOptionAdapter(Context context, ArrayList<Option> list, Template template) {
         this.context = context;
         templateList = list;
-        this.fragment = fragment;
-        dbConnector = new DBConnector(context);
+        this.template = template;
     }
 
     @Override
@@ -60,24 +62,37 @@ public class TemplatesViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup arg2) {
-        Template template = templateList.get(position);
+        Option option = templateList.get(position);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.option_view_row, null);
+            convertView = inflater.inflate(R.layout.template_option_view_row, null);
 
         }
-        final TextView templateName = (TextView) convertView.findViewById(R.id.option_name);
+        TextView templateName = (TextView) convertView.findViewById(R.id.option_name);
         TextView templateDesc = (TextView) convertView.findViewById(R.id.option_info);
-        ImageView templateImage = (ImageView) convertView.findViewById(R.id.option_icon);
+        SwitchCompat optionSwitch = convertView.findViewById(R.id.optionSwitch);
 
-        name = template.getTemplateName();
-        String description = template.getTemplateDescription();
+        name = option.getOptionName();
+        String description = option.getOptionDesc();
 
         templateName.setText(name);
         templateDesc.setText(description);
-        templateImage.setImageResource(R.mipmap.notebook);
+
+        optionSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if (isChecked) {
+                    checked = true;
+                }
+                else {
+                    checked = false;
+                }
+            }
+        });
 
         return convertView;
     }

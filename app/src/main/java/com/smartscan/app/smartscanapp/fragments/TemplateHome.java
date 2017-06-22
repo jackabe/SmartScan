@@ -41,12 +41,12 @@ public class TemplateHome extends Fragment {
     private Fragment mFragment;
     private ListView templatesListView;
     private TemplatesViewAdapter adapter;
-    ArrayList<Template>templates;
+    private ArrayList<Template>templates;
     private Template template;
     private DBConnector db;
-    FloatingActionButton addNewTemplate;
-    String templateName;
-    String templateDescription;
+    private FloatingActionButton addNewTemplate;
+    private String templateName;
+    private String templateDescription;
     private Random r;
 
     public TemplateHome() {
@@ -134,11 +134,43 @@ public class TemplateHome extends Fragment {
             }
         });
 
+
         templatesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(final AdapterView<?> parent, View view, int position, long id) {
                 template = templates.get(position);
-                }
+                mFragment = new ViewTemplate();
+                Bundle bundle =new Bundle();
+                bundle.putParcelable("Template", template);
+                mFragment.setArguments(bundle);
+                attachFragment();
+            }
+        });
 
+        templatesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int position, long id) {
+                template = templates.get(position);
+                AlertDialog.Builder options = new AlertDialog.Builder(getActivity());
+                options.setTitle(getActivity().getString(R.string.options));
+                options.setItems(new String[]{"Delete", "Modify", "Cancel"}, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int i) {
+                        switch (i) {
+                            case 0:
+                                String delQuery = "DELETE FROM tableTemplates WHERE templateName='"+template.getTemplateName()+"' ";
+                                db.executeQuery(delQuery);
+                                populateListView();
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                        }
+                    }
+                });
+                options.show();
+                return true;
+            }
         });
     }
 

@@ -21,7 +21,11 @@ public enum Option {
     TURNOFF("Turn The Fitting Off", "Clicking here will turn the device off"),
     TURNON("Turn the Fitting On", "Clicking here will turn the device on"),
     ENABLE("Enable Fitting", "Enable the functionality of the device"),
-    DISABLE("Disable Fitting", "Disable the functionality of the device");
+    DISABLE("Disable Fitting", "Disable the functionality of the device"),
+
+    // These BELOW are all actions for templates
+    TEMPLATEPOWER("Turn on device", "Switching this will turn on and off the fitting"),
+    TEMPLATEENABLED("Enable Device", "Switching this will enable and disable the device");
 
     private final String optionName;
     private final String optionDesc;

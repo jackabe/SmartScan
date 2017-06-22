@@ -37,4 +37,10 @@ public class Control {
         actions.add(Option.DISABLE);
         return actions;
     }
+
+    public ArrayList<Option> populateTemplateActions() {
+        actions.add(Option.TEMPLATEPOWER);
+        actions.add(Option.TEMPLATEENABLED);
+        return actions;
+    }
 }

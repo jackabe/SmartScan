@@ -98,15 +98,14 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     }
 
     private void addDrawerItems() {
-        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[7];
+        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[6];
 
         drawerItem[0] = new ObjectDrawerItem(R.mipmap.ic_home_white_24dp, "Home");
         drawerItem[1] = new ObjectDrawerItem(R.mipmap.ic_important_devices_white_24dp, "Recent Devices");
         drawerItem[2] = new ObjectDrawerItem(R.mipmap.ic_settings_remote_white_24dp, "Start New Scan");
         drawerItem[3] = new ObjectDrawerItem(R.mipmap.ic_folder_white_24dp, "Templates");
-        drawerItem[4] = new ObjectDrawerItem(R.mipmap.ic_add_to_photos_white_24dp, "New Template");
-        drawerItem[5] = new ObjectDrawerItem(R.drawable.ic_help_outline_white_24dp, "Help");
-        drawerItem[6] = new ObjectDrawerItem(R.mipmap.ic_settings_white_24dp, "Settings");
+        drawerItem[4] = new ObjectDrawerItem(R.drawable.ic_help_outline_white_24dp, "Help");
+        drawerItem[5] = new ObjectDrawerItem(R.mipmap.ic_settings_white_24dp, "Settings");
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(getApplicationContext(), R.layout.listview_drawer_item_row, drawerItem);
 
