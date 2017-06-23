@@ -4,28 +4,19 @@ package com.smartscan.app.smartscanapp.Adapters;
  * Created by Jack_Allcock on 15/06/2017.
  */
 
-import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import com.smartscan.app.smartscanapp.Database.DBConnector;
-import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.fragments.TemplateHome;
-import com.smartscan.app.smartscanapp.fragments.ViewTemplate;
-import com.smartscan.app.smartscanapp.model.Option;
-import com.smartscan.app.smartscanapp.model.Template;
+import com.smartscan.app.smartscanapp.Fragments.ViewTemplate;
+import com.smartscan.app.smartscanapp.Model.Option;
+import com.smartscan.app.smartscanapp.Model.Template;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
@@ -76,8 +67,8 @@ public class TemplateOptionAdapter extends BaseAdapter {
 
         }
         convertView.setTag(option);
-        TextView templateName = (TextView) convertView.findViewById(R.id.option_name);
-        TextView templateDesc = (TextView) convertView.findViewById(R.id.option_info);
+        TextView templateName = convertView.findViewById(R.id.option_name);
+        TextView templateDesc = convertView.findViewById(R.id.option_info);
         SwitchCompat optionSwitch = convertView.findViewById(R.id.optionSwitch);
 
         name = option.getOptionName();

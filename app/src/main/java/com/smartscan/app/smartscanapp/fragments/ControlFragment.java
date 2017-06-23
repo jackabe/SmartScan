@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.fragments;
+package com.smartscan.app.smartscanapp.Fragments;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -17,8 +17,8 @@ import android.widget.ListView;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.Adapters.OptionAdapter;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.model.Control;
-import com.smartscan.app.smartscanapp.model.Option;
+import com.smartscan.app.smartscanapp.Model.Control;
+import com.smartscan.app.smartscanapp.Model.Option;
 import java.util.ArrayList;
 
 /**

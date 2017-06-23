@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.fragments;
+package com.smartscan.app.smartscanapp.Fragments;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.model.MessageSystem;
+import com.smartscan.app.smartscanapp.Model.MessageSystem;
 
 import de.greenrobot.event.EventBus;
 

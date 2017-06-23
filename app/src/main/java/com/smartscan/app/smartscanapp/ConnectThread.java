@@ -1,14 +1,9 @@
 package com.smartscan.app.smartscanapp;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
 import java.lang.reflect.Method;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,23 +11,11 @@ import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.util.JsonReader;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.smartscan.app.smartscanapp.fragments.ControlFragment;
-import com.smartscan.app.smartscanapp.fragments.MainFragment;
-import com.smartscan.app.smartscanapp.model.DeviceMessageListener;
-import com.smartscan.app.smartscanapp.model.MessageSystem;
+import com.smartscan.app.smartscanapp.Model.DeviceMessageListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import de.greenrobot.event.EventBus;
 
 public class ConnectThread {
 

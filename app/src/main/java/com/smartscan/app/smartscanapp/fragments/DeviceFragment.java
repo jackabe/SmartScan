@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.fragments;
+package com.smartscan.app.smartscanapp.Fragments;
 
 import android.Manifest;
 import android.app.Fragment;
@@ -23,7 +23,7 @@ import com.smartscan.app.smartscanapp.ConnectThread;
 import com.smartscan.app.smartscanapp.Adapters.DeviceCustomAdapter;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.model.DeviceItem;
+import com.smartscan.app.smartscanapp.Model.DeviceItem;
 
 import java.util.ArrayList;
 import java.util.Set;

@@ -4,9 +4,7 @@ package com.smartscan.app.smartscanapp.Adapters;
  * Created by Jack_Allcock on 15/06/2017.
  */
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.model.ObjectDrawerItem;
+import com.smartscan.app.smartscanapp.Model.ObjectDrawerItem;
 
 /**
  * Created by Andy on 10-Dec-14.

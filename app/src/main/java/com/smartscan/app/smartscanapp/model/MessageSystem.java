@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.model;
+package com.smartscan.app.smartscanapp.Model;
 
 /**
  * Created by Jack_Allcock on 21/06/2017.

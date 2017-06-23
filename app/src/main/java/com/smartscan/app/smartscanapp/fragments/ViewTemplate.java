@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.fragments;
+package com.smartscan.app.smartscanapp.Fragments;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -6,7 +6,6 @@ package com.smartscan.app.smartscanapp.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +16,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.smartscan.app.smartscanapp.Adapters.TemplateOptionAdapter;
-import com.smartscan.app.smartscanapp.Adapters.TemplatesViewAdapter;
+import com.smartscan.app.smartscanapp.ConnectThread;
 import com.smartscan.app.smartscanapp.Database.DBConnector;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.model.Control;
-import com.smartscan.app.smartscanapp.model.Option;
-import com.smartscan.app.smartscanapp.model.Template;
+import com.smartscan.app.smartscanapp.Model.Control;
+import com.smartscan.app.smartscanapp.Model.Option;
+import com.smartscan.app.smartscanapp.Model.SendData;
+import com.smartscan.app.smartscanapp.Model.Template;
 
 import java.util.ArrayList;
 
@@ -42,7 +42,12 @@ public class ViewTemplate extends Fragment {
     private ArrayList<Option>templateOptions;
     private TemplateOptionAdapter adapter;
     private Button saveButton;
+    private Button applyButton;
     private DBConnector dbConnector;
+    private ConnectThread connectThread;
+    private int power;
+    private int enable;
+    private SendData dataSender;
 
     public ViewTemplate() {
     }
@@ -62,6 +67,7 @@ public class ViewTemplate extends Fragment {
 
         dbConnector = new DBConnector(getActivity());
         saveButton = getActivity().findViewById(R.id.templateSaveButton);
+        applyButton = getActivity().findViewById(R.id.templateApplyButton);
         control = new Control();
         templateOptions = control.populateTemplateActions();
         templateOptionsView = getActivity().findViewById(R.id.templateOptionsView);
@@ -75,13 +81,42 @@ public class ViewTemplate extends Fragment {
             public void onClick(View view) {
                 Template updateTemplate = getTemplate();
                 String name = updateTemplate.getTemplateName();
-                int power = updateTemplate.getTemplatePower();
-                int enable = updateTemplate.getTemplateStatus();
+                power = updateTemplate.getTemplatePower();
+                enable = updateTemplate.getTemplateStatus();
                 dbConnector.updateQuery(name, power, enable);
                 Toast.makeText(getActivity(), "Template Saved", Toast.LENGTH_LONG).show();
+            }
+        });
 
-                Log.i("power", power + "");
-                Log.i("enable", enable + "");
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 if(((MainActivity)getActivity()).isConnected()) {
+                     connectThread = (((MainActivity) getActivity()).getConnection());
+                     dataSender = new SendData(connectThread);
+                     if (power == 1) {
+                         dataSender.sendData("I1", "0BFF");
+                     }
+                     else if (power == 0){
+                         dataSender.sendData("I1", "0B00");
+                     }
+                     else {
+                         Toast.makeText(getActivity(), "Error sending command", Toast.LENGTH_SHORT).show();
+                     }
+
+                     if (enable == 1) {
+                         dataSender.sendData("I1", "06C0");
+                     }
+                     else if (enable == 0){
+                         dataSender.sendData("I1", "0600");
+                     }
+                     else {
+                         Toast.makeText(getActivity(), "Error sending command", Toast.LENGTH_SHORT).show();
+                     }
+                 }
+                else {
+                     Toast.makeText(getActivity(), "Please connect to a device first!", Toast.LENGTH_LONG).show();
+                 }
             }
         });
 

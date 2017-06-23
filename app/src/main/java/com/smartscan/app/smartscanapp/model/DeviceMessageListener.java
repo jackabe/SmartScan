@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.model;
+package com.smartscan.app.smartscanapp.Model;
 
 import de.greenrobot.event.EventBus;
 

@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.fragments;
+package com.smartscan.app.smartscanapp.Fragments;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +21,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.smartscan.app.smartscanapp.Adapters.OptionAdapter;
 import com.smartscan.app.smartscanapp.Adapters.TemplatesViewAdapter;
 import com.smartscan.app.smartscanapp.Database.DBConnector;
-import com.smartscan.app.smartscanapp.Database.DBHelper;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.model.Control;
-import com.smartscan.app.smartscanapp.model.Option;
-import com.smartscan.app.smartscanapp.model.Template;
+import com.smartscan.app.smartscanapp.Model.Template;
 
 import java.util.ArrayList;
 import java.util.Random;

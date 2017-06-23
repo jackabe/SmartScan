@@ -1,7 +1,4 @@
-package com.smartscan.app.smartscanapp.model;
-
-import android.graphics.Color;
-import android.widget.Toast;
+package com.smartscan.app.smartscanapp.Model;
 
 import com.smartscan.app.smartscanapp.ConnectThread;
 
@@ -17,8 +14,6 @@ import java.io.IOException;
 public class SendData {
 
     private JSONObject jsonObject;
-    private String jsonStart;
-    private String jsonEnd;
     private ConnectThread connectThread;
 
     public SendData(ConnectThread connectThread) {

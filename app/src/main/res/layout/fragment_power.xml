@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/statusTextFragment"
-        android:name="com.smartscan.app.smartscanapp.fragments.StatusTextFragment"
+        android:name="com.smartscan.app.smartscanapp.Fragments.StatusTextFragment"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="50dp"

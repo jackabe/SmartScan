@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.model;
+package com.smartscan.app.smartscanapp.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -18,13 +18,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.smartscan.app.smartscanapp.Adapters.DrawerItemCustomAdapter;
-import com.smartscan.app.smartscanapp.fragments.DeviceFragment;
-import com.smartscan.app.smartscanapp.fragments.MainFragment;
-import com.smartscan.app.smartscanapp.fragments.ScanFragment;
-import com.smartscan.app.smartscanapp.fragments.StatusTextFragment;
-import com.smartscan.app.smartscanapp.fragments.TemplateHome;
-import com.smartscan.app.smartscanapp.model.ObjectDrawerItem;
-import com.smartscan.app.smartscanapp.model.Template;
+import com.smartscan.app.smartscanapp.Fragments.DeviceFragment;
+import com.smartscan.app.smartscanapp.Fragments.MainFragment;
+import com.smartscan.app.smartscanapp.Fragments.ScanFragment;
+import com.smartscan.app.smartscanapp.Fragments.StatusTextFragment;
+import com.smartscan.app.smartscanapp.Fragments.TemplateHome;
+import com.smartscan.app.smartscanapp.Model.ObjectDrawerItem;
+import com.smartscan.app.smartscanapp.Model.Template;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -270,6 +270,16 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
     public Template getTemplate() {
         return template;
+    }
+
+    public Boolean isConnected() {
+        if (connectThread == null ) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
     }
 
 }
