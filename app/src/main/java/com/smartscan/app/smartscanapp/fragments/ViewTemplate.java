@@ -12,10 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.smartscan.app.smartscanapp.Adapters.TemplateOptionAdapter;
 import com.smartscan.app.smartscanapp.Adapters.TemplatesViewAdapter;
+import com.smartscan.app.smartscanapp.Database.DBConnector;
+import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.Control;
 import com.smartscan.app.smartscanapp.model.Option;
@@ -37,6 +41,8 @@ public class ViewTemplate extends Fragment {
     private Option option;
     private ArrayList<Option>templateOptions;
     private TemplateOptionAdapter adapter;
+    private Button saveButton;
+    private DBConnector dbConnector;
 
     public ViewTemplate() {
     }
@@ -54,13 +60,30 @@ public class ViewTemplate extends Fragment {
         super.onActivityCreated(savedInstanceState);
         super.onActivityCreated(savedInstanceState);
 
+        dbConnector = new DBConnector(getActivity());
+        saveButton = getActivity().findViewById(R.id.templateSaveButton);
         control = new Control();
         templateOptions = control.populateTemplateActions();
         templateOptionsView = getActivity().findViewById(R.id.templateOptionsView);
         bundle = new Bundle();
-        template = (Template) bundle.getParcelable("Template");
+        template = ((MainActivity)getActivity()).getTemplate();
 
         populateListView();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Template updateTemplate = getTemplate();
+                String name = updateTemplate.getTemplateName();
+                int power = updateTemplate.getTemplatePower();
+                int enable = updateTemplate.getTemplateStatus();
+                dbConnector.updateQuery(name, power, enable);
+                Toast.makeText(getActivity(), "Template Saved", Toast.LENGTH_LONG).show();
+
+                Log.i("power", power + "");
+                Log.i("enable", enable + "");
+            }
+        });
 
     }
 
@@ -77,9 +100,17 @@ public class ViewTemplate extends Fragment {
 
     public void populateListView() {
         adapter = new TemplateOptionAdapter(
-                getActivity(), templateOptions, template);
+                getActivity(), templateOptions, template, ViewTemplate.this);
         templateOptionsView.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
+    }
+
+    public void setTemplate(Template template) {
+        this.template = template;
+    }
+
+    public Template getTemplate() {
+        return template;
     }
 }

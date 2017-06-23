@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.smartscan.app.smartscanapp.Adapters.OptionAdapter;
 import com.smartscan.app.smartscanapp.Adapters.TemplatesViewAdapter;
 import com.smartscan.app.smartscanapp.Database.DBConnector;
+import com.smartscan.app.smartscanapp.Database.DBHelper;
+import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.model.Control;
 import com.smartscan.app.smartscanapp.model.Option;
@@ -112,8 +114,9 @@ public class TemplateHome extends Fragment {
                                     desc.show();
                                 }
 
-                                db.executeQuery("INSERT INTO tableTemplates(templateName, templateDescription) values ('"
-                                    + templateName + "','" + templateDescription + "')");
+                                db.executeQuery("INSERT INTO tableTemplates(templateName, templateDescription, templatePowerSetting," +
+                                        " templateEnabledSetting) values ('"
+                                    + templateName + "','" + templateDescription + "','" + 0 + "','" + 0 + "')");
                                 populateListView();
                                 Toast cool = Toast.makeText(getActivity(), "Template Added", Toast.LENGTH_LONG);
                                 cool.show();
@@ -138,10 +141,8 @@ public class TemplateHome extends Fragment {
         templatesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(final AdapterView<?> parent, View view, int position, long id) {
                 template = templates.get(position);
+                ((MainActivity)getActivity()).setTemplate(template);
                 mFragment = new ViewTemplate();
-                Bundle bundle =new Bundle();
-                bundle.putParcelable("Template", template);
-                mFragment.setArguments(bundle);
                 attachFragment();
             }
         });
@@ -198,6 +199,10 @@ public class TemplateHome extends Fragment {
                             .getColumnIndex("templateName")));
                     template.setTemplateDescription(c1.getString(c1
                             .getColumnIndex("templateDescription")));
+                    template.setTemplatePower(c1.getInt(c1
+                            .getColumnIndex("templatePowerSetting")));
+                    template.setTemplateStatus(c1.getInt(c1
+                            .getColumnIndex("templateEnabledSetting")));
                     templates.add(template);
 
                 } while (c1.moveToNext());
@@ -211,4 +216,5 @@ public class TemplateHome extends Fragment {
 
         adapter.notifyDataSetChanged();
     }
+
 }

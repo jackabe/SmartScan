@@ -10,6 +10,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.smartscan.app.smartscanapp.Database.DBConnector;
+import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.fragments.TemplateHome;
 import com.smartscan.app.smartscanapp.fragments.ViewTemplate;
@@ -35,11 +37,16 @@ public class TemplateOptionAdapter extends BaseAdapter {
     private String name;
     private Template template;
     private Boolean checked;
+    int power;
+    int enable;
+    Option option;
+    ViewTemplate viewTemplate;
 
-    public TemplateOptionAdapter(Context context, ArrayList<Option> list, Template template) {
+    public TemplateOptionAdapter(Context context, ArrayList<Option> list, Template template, ViewTemplate viewTemplate) {
         this.context = context;
         templateList = list;
         this.template = template;
+        this.viewTemplate = viewTemplate;
     }
 
     @Override
@@ -62,7 +69,7 @@ public class TemplateOptionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup arg2) {
-        Option option = templateList.get(position);
+        option = templateList.get(position);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -70,6 +77,8 @@ public class TemplateOptionAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.template_option_view_row, null);
 
         }
+
+        convertView.setTag(option);
         TextView templateName = (TextView) convertView.findViewById(R.id.option_name);
         TextView templateDesc = (TextView) convertView.findViewById(R.id.option_info);
         SwitchCompat optionSwitch = convertView.findViewById(R.id.optionSwitch);
@@ -80,20 +89,68 @@ public class TemplateOptionAdapter extends BaseAdapter {
         templateName.setText(name);
         templateDesc.setText(description);
 
+        // Sets switches to their database values
+        switch (option) {
+            case TEMPLATEPOWER:
+                if (power == 0) {
+                    optionSwitch.setChecked(false);
+                }
+
+                else {
+                    optionSwitch.setChecked(true);
+                }
+                break;
+            case TEMPLATEENABLED:
+                if (enable == 0) {
+                    optionSwitch.setChecked(false);
+                }
+
+                else {
+                    optionSwitch.setChecked(true);
+                }
+                break;
+        }
+
+        // Monitors changing of switches and sets objects to be saved.
+
         optionSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     checked = true;
-                }
-                else {
+                    switch (option) {
+                        case TEMPLATEPOWER:
+                            template.setTemplatePower(1);
+                            Log.i("power", "power setting to 1" + "");
+                            Log.i("enable", "enable dosnt change" + "");
+                            break;
+                        case TEMPLATEENABLED:
+                            template.setTemplateStatus(1);
+                            Log.i("power", "power dosnt change" + "");
+                            Log.i("enable", "enable setting to 1" + "");
+                            break;
+                    }
+                } else {
                     checked = false;
+                    switch (option) {
+                        case TEMPLATEPOWER:
+                            template.setTemplatePower(0);
+                            Log.i("power", "power setting to 0" + "");
+                            Log.i("enable", "enable dosnt change" + "");
+                            break;
+                        case TEMPLATEENABLED:
+                            template.setTemplateStatus(0);
+                            Log.i("power", "power dosnt change" + "");
+                            Log.i("enable", "enable setting to 0" + "");
+                            break;
+                    }
                 }
             }
+
         });
 
+        viewTemplate.setTemplate(template);
         return convertView;
     }
 

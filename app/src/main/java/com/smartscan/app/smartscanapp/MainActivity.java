@@ -24,6 +24,7 @@ import com.smartscan.app.smartscanapp.fragments.ScanFragment;
 import com.smartscan.app.smartscanapp.fragments.StatusTextFragment;
 import com.smartscan.app.smartscanapp.fragments.TemplateHome;
 import com.smartscan.app.smartscanapp.model.ObjectDrawerItem;
+import com.smartscan.app.smartscanapp.model.Template;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     private String mActivityTitle;
     private Fragment mFragment;
     private BluetoothDevice device;
+    private Template template;
 
     private ConnectThread connectThread;
     private BluetoothAdapter mBluetoothAdapter;
@@ -260,6 +262,14 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
     public ConnectThread getConnection() {
         return connectThread;
+    }
+
+    public void setTemplate(Template template) {
+        this.template = template;
+    }
+
+    public Template getTemplate() {
+        return template;
     }
 
 }

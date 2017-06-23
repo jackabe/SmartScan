@@ -51,7 +51,8 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
 
-
-
+    public void createDatabase(SQLiteDatabase db) {
+        db.execSQL(CREATE_TEMPLATE_DATABASE);
+    }
 
 }
