@@ -27,6 +27,7 @@ import com.smartscan.app.smartscanapp.fragments.ViewTemplate;
 import com.smartscan.app.smartscanapp.model.Option;
 import com.smartscan.app.smartscanapp.model.Template;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -37,9 +38,6 @@ public class TemplateOptionAdapter extends BaseAdapter {
     private String name;
     private Template template;
     private Boolean checked;
-    int power;
-    int enable;
-    Option option;
     ViewTemplate viewTemplate;
 
     public TemplateOptionAdapter(Context context, ArrayList<Option> list, Template template, ViewTemplate viewTemplate) {
@@ -69,7 +67,7 @@ public class TemplateOptionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup arg2) {
-        option = templateList.get(position);
+        final Option option = templateList.get(position);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -77,7 +75,6 @@ public class TemplateOptionAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.template_option_view_row, null);
 
         }
-
         convertView.setTag(option);
         TextView templateName = (TextView) convertView.findViewById(R.id.option_name);
         TextView templateDesc = (TextView) convertView.findViewById(R.id.option_info);
@@ -90,29 +87,25 @@ public class TemplateOptionAdapter extends BaseAdapter {
         templateDesc.setText(description);
 
         // Sets switches to their database values
+
         switch (option) {
             case TEMPLATEPOWER:
-                if (power == 0) {
-                    optionSwitch.setChecked(false);
-                }
-
-                else {
+                final int power = template.getTemplatePower();
+                if (power == 1) {
                     optionSwitch.setChecked(true);
                 }
                 break;
             case TEMPLATEENABLED:
-                if (enable == 0) {
-                    optionSwitch.setChecked(false);
-                }
-
-                else {
+                final int enabled = template.getTemplateStatus();
+                if (enabled == 1) {
                     optionSwitch.setChecked(true);
                 }
                 break;
+            default:
+                Toast.makeText(context, "Problem!", Toast.LENGTH_SHORT).show();
         }
 
         // Monitors changing of switches and sets objects to be saved.
-
         optionSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
@@ -147,11 +140,9 @@ public class TemplateOptionAdapter extends BaseAdapter {
                     }
                 }
             }
-
         });
 
         viewTemplate.setTemplate(template);
         return convertView;
     }
-
 }
