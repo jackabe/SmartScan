@@ -24,12 +24,13 @@ import com.smartscan.app.smartscanapp.Model.Control;
 import com.smartscan.app.smartscanapp.Model.Option;
 import com.smartscan.app.smartscanapp.Model.SendData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PowerFragment extends Fragment{
+public class AddressFragment extends Fragment {
 
     private Fragment mFragment;
 
@@ -38,11 +39,10 @@ public class PowerFragment extends Fragment{
     private OptionAdapter adapter;
     private Option option;
     private ConnectThread connectThread;
-    private TextView statusText;
-    private ArrayList<Option>actions;
+    private ArrayList<Option> actions;
     private SendData dataSender;
 
-    public PowerFragment() {
+    public AddressFragment() {
     }
 
     @Override
@@ -58,12 +58,11 @@ public class PowerFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         super.onActivityCreated(savedInstanceState);
 
-        statusText = getActivity().findViewById(R.id.statusText);
-        connectThread = ((MainActivity)getActivity()).getConnection();
+        connectThread = ((MainActivity) getActivity()).getConnection();
 
         actionListView = (ListView) getActivity().findViewById(R.id.powerListView);
         control = new Control();
-        actions = control.populateActions();
+        actions = control.populateAddressActions();
 
         adapter = new OptionAdapter(
                 getActivity().getApplicationContext(), actions);
@@ -75,29 +74,18 @@ public class PowerFragment extends Fragment{
 
                 option = actions.get(position);
                 switch (option) {
-                    case TURNON:
+                    case BUILDING:
                         dataSender = new SendData(connectThread);
-                        dataSender.sendData("I1", "0BFF");
-                        Toast onToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting To Turn On", Toast.LENGTH_SHORT);
+                        dataSender.sendData("I1", "1010");
+                        Toast onToast = Toast.makeText(getActivity().getApplicationContext(), "Setting Building Address", Toast.LENGTH_SHORT);
                         onToast.show();
                         break;
-                    case TURNOFF:
+                    case GROUP:
                         dataSender = new SendData(connectThread);
-                        dataSender.sendData("I1", "0B00");
-                        Toast offToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting To Turn Off", Toast.LENGTH_SHORT);
+                        dataSender.sendData("I1", "1111");
+                        Toast offToast = Toast.makeText(getActivity().getApplicationContext(), "Setting Group Address", Toast.LENGTH_SHORT);
                         offToast.show();
                         break;
-                    case ENABLE:
-                        dataSender = new SendData(connectThread);
-                        dataSender.sendData("I1", "06C0");
-                        Toast enableToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting Enable", Toast.LENGTH_SHORT);
-                        enableToast.show();
-                        break;
-                    case DISABLE:
-                        dataSender = new SendData(connectThread);
-                        dataSender.sendData("I1", "0600");
-                        Toast disableToast = Toast.makeText(getActivity().getApplicationContext(), "Attempting Disable", Toast.LENGTH_SHORT);
-                        disableToast.show();
                     default:
                         break;
                 }

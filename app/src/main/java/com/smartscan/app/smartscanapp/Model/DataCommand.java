@@ -10,17 +10,18 @@ import java.util.List;
 
 public enum DataCommand {
 
-    commandOn("I1", "0BFF", "8B FF"),
-    commandOff("I1", "0B00", "8B 00"),
-    commandEnable("I1", "06C0", "86 C0"),
-    commandDisable("I1", "0600", "86 00");
+    commandOn(Option.TEMPLATEPOWER, "I1", "0BFF", "Received 8B FF"),
+    commandOff(Option.TEMPLATEPOWER, "I1", "0B00", "Received 8B 00"),
+    commandEnable(Option.TEMPLATEENABLED, "I1", "06C0", "Received 86 C0"),
+    commandDisable(Option.TEMPLATEENABLED, "I1", "0600", "Received 86 00");
 
+    private final Option commandOption;
     private final String commandStart;
-    private final String commandReturn;
     private final String commandEnd;
-    private ConnectThread connectThread;
+    private final String commandReturn;
 
-    DataCommand(String commandStart, String commandEnd, String commandReturn) {
+    DataCommand(Option commandOption, String commandStart, String commandEnd, String commandReturn) {
+        this.commandOption = commandOption;
         this.commandStart = commandStart;
         this.commandEnd = commandEnd;
         this.commandReturn = commandReturn;
@@ -38,6 +39,9 @@ public enum DataCommand {
         return commandReturn;
     }
 
+    public Option getCommandOption() {
+        return commandOption;
+    }
 }
 
 

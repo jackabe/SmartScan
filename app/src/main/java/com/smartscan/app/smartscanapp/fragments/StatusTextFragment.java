@@ -22,7 +22,7 @@ import de.greenrobot.event.EventBus;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StatusTextFragment extends Fragment implements MainActivity.OnBackPressedListener {
+public class StatusTextFragment extends Fragment {
 
     private Fragment mFragment;
     private TextView statusText;
@@ -34,7 +34,6 @@ public class StatusTextFragment extends Fragment implements MainActivity.OnBackP
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ((MainActivity) getActivity()).setOnBackPressedListener(this);
         return inflater.inflate(R.layout.fragment_status_bar, container, false);
     }
 
@@ -56,12 +55,6 @@ public class StatusTextFragment extends Fragment implements MainActivity.OnBackP
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }
-    }
-
-    @Override
-    public void doBack() {
-        mFragment = new ControlFragment();
-        attachFragment();
     }
 
     // This method will be called when a HelloWorldEvent is posted

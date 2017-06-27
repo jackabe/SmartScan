@@ -1,5 +1,6 @@
 package com.smartscan.app.smartscanapp.Model;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -20,11 +21,18 @@ public class CommandHandler {
 
 
     public boolean handleCommand(DataCommand command) {
-        Log.i("hi", message);
+
+        if (TextUtils.isEmpty(message)) {
+            Log.i("test", "empty");
+            return false;
+        }
+
         if (message.contains(command.getCommandReturn())) {
+            Log.i("test", "found");
             return true;
         }
         else {
+            Log.i("test", "nope");
             return false;
         }
     }

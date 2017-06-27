@@ -174,7 +174,8 @@ public class TemplateHome extends Fragment {
     private void attachFragment() {
         if (mFragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment, "template")
+                    .addToBackStack("template").commit();
 
         } else {
             Log.e("MainActivity", "Error in creating fragment");

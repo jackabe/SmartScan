@@ -23,6 +23,17 @@ public enum Option {
     ENABLE("Enable Fitting", "Enable the functionality of the device"),
     DISABLE("Disable Fitting", "Disable the functionality of the device"),
 
+    // These BELOW are all actions related to SCENES
+    SCENESENABLE("Enable Scene Commands", "Switch to send commands via the RF TR PCB"),
+    SCENE1("Scene 1", "Change light to scene 1"),
+    SCENE2("Scene 2", "Change light to scene 2"),
+    SCENE3("Scene 3", "Change light to scene 3"),
+    SCENE4("Scene 4", "Change light to scene 4"),
+
+    // These BELOW are actions related to address
+    BUILDING("Change The Building Address", "This will set the address for the main building"),
+    GROUP("Change The Group Address", "Give a device a group"),
+
     // These BELOW are all actions for templates
     TEMPLATEPOWER("Turn on device", "Switching this will turn on and off the fitting"),
     TEMPLATEENABLED("Enable Device", "Switching this will enable and disable the device");

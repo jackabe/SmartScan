@@ -67,6 +67,14 @@ public class ControlFragment extends Fragment {
                         mFragment = new PowerFragment();
                         attachFragment();
                         break;
+                    case SCENES:
+                        mFragment = new ScenesFragment();
+                        attachFragment();
+                        break;
+                    case ADDRESSES:
+                        mFragment = new AddressFragment();
+                        attachFragment();
+                        break;
                     default:
                         break;
                 }
@@ -80,7 +88,8 @@ public class ControlFragment extends Fragment {
     private void attachFragment() {
         if (mFragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment, "control")
+                    .addToBackStack("control").commit();
 
         } else {
             Log.e("MainActivity", "Error in creating fragment");

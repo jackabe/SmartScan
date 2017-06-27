@@ -227,6 +227,12 @@ public class ConnectThread {
         Log.i("sending", jsonStr);
     }
 
+    public void sendRadio(String string) throws IOException{
+        OutputStream socketOutputStream =  bluetoothSocket.getOutputStream();
+        socketOutputStream.write(string.getBytes("utf-8"));
+        Log.i("sending", string);
+    }
+
     public boolean receiveData(BluetoothSocketWrapper socket) throws IOException{
         InputStream socketInputStream =  socket.getInputStream();
         byte[] buffer = new byte[1024];
@@ -238,7 +244,8 @@ public class ConnectThread {
                 bytes = socketInputStream.read(buffer);            //read bytes from input buffer
                 String readMessage = new String(buffer, 0, bytes);
                 messageListener.checkMessages(readMessage);
-                Log.i("logging", readMessage);
+                messageListener.checkTemplateMessaes(readMessage);
+                Log.i("messageFromSensor", readMessage);
 
             } catch (IOException e) {
                 break;

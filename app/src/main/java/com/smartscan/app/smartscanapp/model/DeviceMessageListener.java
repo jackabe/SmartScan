@@ -1,5 +1,7 @@
 package com.smartscan.app.smartscanapp.Model;
 
+import android.util.Log;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -17,7 +19,6 @@ public class DeviceMessageListener {
         // Add new receiver if statements here when you want to listen to new known messages
 
         // Receivers for Power Option Fragment:
-
 
         //Receiver for enable and disable
         if (message.contains("Received 86")) {
@@ -52,6 +53,10 @@ public class DeviceMessageListener {
         else {
 
         }
+    }
+
+    public void checkTemplateMessaes(String message) {
+        EventBus.getDefault().post(new TemplateMessageSystem(message));
     }
 
 }

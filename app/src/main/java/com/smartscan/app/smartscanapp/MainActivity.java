@@ -205,29 +205,17 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         }
     }
 
-    protected OnBackPressedListener onBackPressedListener;
-
-    public interface OnBackPressedListener {
-        void doBack();
-    }
-
-    public void setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
-        this.onBackPressedListener = onBackPressedListener;
-    }
-
     @Override
     public void onBackPressed() {
-        if (onBackPressedListener != null) {
-            onBackPressedListener.doBack();
-        }
-        else {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
         }
     }
 
     @Override
     protected void onDestroy() {
-        onBackPressedListener = null;
         super.onDestroy();
     }
 
@@ -242,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     public void connectToDevice() {
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        mBluetoothAdapter.setName("Jack's SmartTr");
         uuidCandidates = new ArrayList<>();
         uuidCandidates.add(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
         connectThread = new ConnectThread(device, true, mBluetoothAdapter, uuidCandidates);
@@ -276,11 +265,9 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         if (connectThread == null ) {
             return false;
         }
-
         else {
             return true;
         }
     }
-
 }
 

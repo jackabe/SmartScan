@@ -43,4 +43,19 @@ public class Control {
         actions.add(Option.TEMPLATEENABLED);
         return actions;
     }
+
+    public ArrayList<Option> populateAddressActions() {
+        actions.add(Option.BUILDING);
+        actions.add(Option.GROUP);
+        return actions;
+    }
+
+    public ArrayList<Option> populateSceneActions() {
+        actions.add(Option.SCENESENABLE);
+        actions.add(Option.SCENE1);
+        actions.add(Option.SCENE2);
+        actions.add(Option.SCENE3);
+        actions.add(Option.SCENE4);
+        return actions;
+    }
 }
