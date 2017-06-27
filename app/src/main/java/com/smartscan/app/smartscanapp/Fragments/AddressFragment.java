@@ -4,14 +4,17 @@ package com.smartscan.app.smartscanapp.Fragments;
  * Created by Jack_Allcock on 15/06/2017.
  */
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +44,10 @@ public class AddressFragment extends Fragment {
     private ConnectThread connectThread;
     private ArrayList<Option> actions;
     private SendData dataSender;
+    private EditText valueInput;
+    private AlertDialog.Builder addressBuilder;
+    private String inputValue;
+    private String start, end;
 
     public AddressFragment() {
     }
@@ -73,22 +80,42 @@ public class AddressFragment extends Fragment {
             public void onItemClick(final AdapterView<?> parent, View view, int position, long id) {
 
                 option = actions.get(position);
-                switch (option) {
-                    case BUILDING:
-                        dataSender = new SendData(connectThread);
-                        dataSender.sendData("I1", "1010");
-                        Toast onToast = Toast.makeText(getActivity().getApplicationContext(), "Setting Building Address", Toast.LENGTH_SHORT);
-                        onToast.show();
-                        break;
-                    case GROUP:
-                        dataSender = new SendData(connectThread);
-                        dataSender.sendData("I1", "1111");
-                        Toast offToast = Toast.makeText(getActivity().getApplicationContext(), "Setting Group Address", Toast.LENGTH_SHORT);
-                        offToast.show();
-                        break;
-                    default:
-                        break;
-                }
+                addressBuilder = new AlertDialog.Builder(getActivity());
+                addressBuilder.setMessage("Set Address");
+                addressBuilder.setTitle("Enter a value between 1-254");
+
+                valueInput = new EditText(getActivity());
+                valueInput.setPadding(50, 50, 50, 50);
+                addressBuilder.setView(valueInput);
+
+                addressBuilder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        inputValue = valueInput.getText().toString();
+                        start = "I1";
+                        switch (option) {
+                            case BUILDING:
+                                dataSender = new SendData(connectThread);
+                                dataSender.sendData(start, "10" +inputValue);
+                                Toast.makeText(getActivity(), "Building set to " + inputValue, Toast.LENGTH_SHORT).show();
+                                break;
+                            case GROUP:
+                                dataSender = new SendData(connectThread);
+                                dataSender.sendData(start, "11" +inputValue);
+                                Toast.makeText(getActivity(), "Group set to " + inputValue, Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+
+                addressBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                });
+
+                addressBuilder.show();
             }
         });
     }
@@ -103,4 +130,5 @@ public class AddressFragment extends Fragment {
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
+
 }

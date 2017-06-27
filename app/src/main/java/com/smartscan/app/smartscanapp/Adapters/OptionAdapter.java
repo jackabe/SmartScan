@@ -52,12 +52,6 @@ public class OptionAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup arg2) {
         Option option = optionList.get(position);
 
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.option_view_row, null);
-
-        }
         TextView optionName = (TextView) convertView.findViewById(R.id.option_name);
         TextView optionDesc = (TextView) convertView.findViewById(R.id.option_info);
         ImageView optionImage = (ImageView) convertView.findViewById(R.id.option_icon);

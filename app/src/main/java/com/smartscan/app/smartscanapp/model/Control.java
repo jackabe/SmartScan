@@ -16,17 +16,20 @@ public class Control {
         this.actions = new ArrayList<>();
     }
 
-    public ArrayList<Option> populateOptions() {
-        options.add(Option.STATE);
+    public ArrayList<Option> populateBasicIR() {
+        options.add(Option.TYPE);
         options.add(Option.MOTION);
-        options.add(Option.SCENES);
         options.add(Option.INTENSITY);
-        options.add(Option.STATUS);
-        options.add(Option.ADDRESSES);
-        options.add(Option.TEMPLATES);
-        options.add(Option.SYSTEM);
-        options.add(Option.MISCELLANEOUS);
-
+        options.add(Option.BURN);
+        options.add(Option.MIN);
+        options.add(Option.START);
+        options.add(Option.POWER);
+        options.add(Option.BRIGHT);
+        options.add(Option.PIRSENS);
+        options.add(Option.PIRENABLE);
+        options.add(Option.VACANT);
+        options.add(Option.SEC);
+        options.add(Option.TDELAY);
         return options;
     }
 

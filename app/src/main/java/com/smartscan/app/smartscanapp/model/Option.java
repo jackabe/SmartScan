@@ -6,11 +6,30 @@ package com.smartscan.app.smartscanapp.Model;
 
 public enum Option {
 
+    // These BELOW are the types of sending mechanisms
+    IR("Infrared", "Communicate with individual lights and sensors"),
+    RF("Radio Frequency", "Communicate to many devices and set scenes"),
+
+    // These BELOW are the basic options for IR
+    INTENSITY("Intensity", "Alter light level of the light"),
+    TYPE("DSI or DALI", "Choose the method of lighting control"),
+    BURN("Burn In Time", "Off or 100hr"),
+    MIN("Min Lamp", "Choose DSI percentage"),
+    MOTION("Motion Line", "Choose motion version"),
+    HOLD("Hold Overr", "Set to on or off"),
+    START("10% Start", "Set to on or off"),
+    POWER("Power Up", "Power on or power off"),
+    BRIGHT("Bright-Out", "Set to on or off"),
+    PIRSENS("PIR Sensitivity", "Change sensitivity of the sensor"),
+    PIRENABLE("PIR Active", "Enale or disable the sensor"),
+    VACANT("If Vacant", "Off / 30s-10h / cont"),
+    SEC("Sec. Level", "Change the DSI level"),
+    TDELAY("T-Delay", "30s-10h / cont"),
+
+
     // The BELOW are main OPTIONS.
     STATE("Power Options", "Turn on and off, view battery.."),
     SCENES("Scenes", "Create and change light scenes"),
-    MOTION("Motion", "Adjust the light motion settings"),
-    INTENSITY("Intensity", "Alter intensity of the light"),
     STATUS("Status", "Monitor light status"),
     ADDRESSES("Addresses", "Change light addresses, E.g. group, building.."),
     TEMPLATES("Templates", "Attach pre-defined settings to light.."),

@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import com.smartscan.app.smartscanapp.Adapters.BasicIRSettings;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.Adapters.OptionAdapter;
 import com.smartscan.app.smartscanapp.R;
@@ -26,16 +24,16 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ControlFragment extends Fragment {
+public class TypeFragment extends Fragment {
 
     private Fragment mFragment;
     private ListView optionListView;
     private Control control;
-    private BasicIRSettings adapter;
+    private OptionAdapter adapter;
     private Option option;
     ArrayList<Option>options;
 
-    public ControlFragment() {
+    public TypeFragment() {
     }
 
     @Override
@@ -55,7 +53,7 @@ public class ControlFragment extends Fragment {
 
         control = new Control();
         options = control.populateBasicIR();
-        adapter = new BasicIRSettings(
+        adapter = new OptionAdapter(
                 getActivity().getApplicationContext(), options);
         optionListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -92,8 +90,8 @@ public class ControlFragment extends Fragment {
     private void attachFragment() {
         if (mFragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment, "control")
-                    .addToBackStack("control").commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment, "type")
+                    .addToBackStack("type").commit();
 
         } else {
             Log.e("MainActivity", "Error in creating fragment");
