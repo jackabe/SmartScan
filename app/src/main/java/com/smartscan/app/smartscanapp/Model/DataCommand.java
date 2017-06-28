@@ -23,7 +23,28 @@ public enum DataCommand {
 
     // Commands for Light Level Delay Time
 
-    commandDelay30(Option.PIRSENS,"I1", "177D", "Received 97 00");
+    commandDelay30H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay1(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay2(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay3(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay5(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay10(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay15(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay20(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay30(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay45(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay1H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay2H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay3H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay4H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay5H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay6H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay7H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay8H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay9H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelay10H(Option.TDELAY,"I1", "177D", "Received 97 00"),
+    commandDelayCont(Option.TDELAY,"I1", "177D", "Received 97 00");
+
 
     private final Option commandOption;
     private final String commandStart;

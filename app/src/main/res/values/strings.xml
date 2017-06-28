@@ -11,4 +11,23 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <string name="options">Template Actions</string>
+
+
+    <!--Menu Options-->
+
+    <string name="basic">Basic Parameters</string>
+
+
+
+
+
+
+
+    <!--Commands-->
+
+
+
+
+
+
 </resources>

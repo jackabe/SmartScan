@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -49,11 +50,14 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     private BluetoothDevice deviceToBeSent;
     private StatusTextFragment fragment;
     EventBus myEventBus;
+    private static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mContext = this;
 
         myEventBus = EventBus.getDefault();
 
@@ -268,6 +272,10 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         else {
             return true;
         }
+    }
+
+    public static Context getContext(){
+        return mContext;
     }
 }
 

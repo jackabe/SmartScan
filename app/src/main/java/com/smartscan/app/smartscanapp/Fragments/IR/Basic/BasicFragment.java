@@ -81,6 +81,10 @@ public class BasicFragment extends Fragment {
                         mFragment = new PIRSensitivity();
                         attachFragment();
                         break;
+                    case TDELAY:
+                        mFragment = new TDelayFragment();
+                        attachFragment();
+                        break;
                     default:
                         break;
                 }

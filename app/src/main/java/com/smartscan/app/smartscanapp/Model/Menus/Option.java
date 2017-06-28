@@ -1,5 +1,11 @@
 package com.smartscan.app.smartscanapp.Model.Menus;
 
+import android.content.Context;
+import android.content.res.Resources;
+
+import com.smartscan.app.smartscanapp.MainActivity;
+import com.smartscan.app.smartscanapp.R;
+
 /**
  * Created by Jack_Allcock on 20/06/2017.
  */
@@ -11,7 +17,7 @@ public enum Option {
     RF("Radio Frequency", "Communicate to many devices and set scenes"),
 
     // Menu for IR
-    BASIC("Basic Parameters", ""),
+    BASIC(getContext().getString(R.string.basic), ""),
     DOWNLOAD("Download/Program", ""),
     ECOMM("Commissioning Emergency", ""),
     ESENSOR("Commissioning Sensors", ""),
@@ -77,8 +83,27 @@ public enum Option {
     GROUP("Change The Group Address", "Give a device a group"),
 
     // These BELOW are all actions for templates
-    TEMPLATEPOWER("Turn on device", "Switching this will turn on and off the fitting"),
-    TEMPLATEENABLED("Enable Device", "Switching this will enable and disable the device"),
+    DELAY30M("Delay Time 30 Minutes", ""),
+    DELAY1("Delay Time 1 Seconds", ""),
+    DELAY2("Delay Time 2 Seconds", ""),
+    DELAY3("Delay Time 3 Seconds", ""),
+    DELAY5("Delay Time 5 Seconds", ""),
+    DELAY10("Delay Time 10 Seconds", ""),
+    DELAY15("Delay Time 15 Seconds", ""),
+    DELAY20("Delay Time 20 Seconds", ""),
+    DELAY30("Delay Time 30 Seconds", ""),
+    DELAY45("Delay Time 45 Seconds", ""),
+    DELAY1H("Delay Time 1 Hour", ""),
+    DELAY2H("Delay Time 2 Hours", ""),
+    DELAY3H("Delay Time 3 Hours", ""),
+    DELAY4H("Delay Time 4 Hours", ""),
+    DELAY5H("Delay Time 5 Hours", ""),
+    DELAY6H("Delay Time 6 Hours", ""),
+    DELAY7H("Delay Time 7 Hours", ""),
+    DELAY8H("Delay Time 8 Hours", ""),
+    DELAY9H("Delay Time 9 Hours", ""),
+    DELAY10H("Delay Time 10 Hours", ""),
+    DELAYCON("Continuous Time Delay", ""),
 
     // The BELOW are all related to Light Level Delay Time
 
@@ -101,5 +126,9 @@ public enum Option {
         return optionDesc;
     }
 
+    public static Context getContext() {
+       Context context = MainActivity.getContext();
+        return context;
+    }
 }
 

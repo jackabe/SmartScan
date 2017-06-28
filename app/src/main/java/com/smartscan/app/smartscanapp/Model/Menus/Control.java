@@ -79,7 +79,6 @@ public class Control {
         return options;
     }
 
-
     public ArrayList<Option> populateTemplateActions() {
         actions.add(Option.TEMPLATEPOWER);
         actions.add(Option.TEMPLATEENABLED);
@@ -99,5 +98,30 @@ public class Control {
         actions.add(Option.SCENE3);
         actions.add(Option.SCENE4);
         return actions;
+    }
+
+    public ArrayList<Option> populateDelayActions() {
+        options.add(Option.DELAY30M);
+        options.add(Option.DELAY1);
+        options.add(Option.DELAY2);
+        options.add(Option.DELAY3);
+        options.add(Option.DELAY5);
+        options.add(Option.DELAY10);
+        options.add(Option.DELAY15);
+        options.add(Option.DELAY20);
+        options.add(Option.DELAY30);
+        options.add(Option.DELAY45);
+        options.add(Option.DELAY1H);
+        options.add(Option.DELAY2H);
+        options.add(Option.DELAY3H);
+        options.add(Option.DELAY4H);
+        options.add(Option.DELAY5H);
+        options.add(Option.DELAY6H);
+        options.add(Option.DELAY7H);
+        options.add(Option.DELAY8H);
+        options.add(Option.DELAY9H);
+        options.add(Option.DELAY10H);
+        options.add(Option.DELAYCON);
+        return options;
     }
 }
