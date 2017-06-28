@@ -14,9 +14,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.Fragments.ViewTemplate;
-import com.smartscan.app.smartscanapp.Model.Option;
-import com.smartscan.app.smartscanapp.Model.Template;
+import com.smartscan.app.smartscanapp.Fragments.IR.Templates.ViewTemplate;
+import com.smartscan.app.smartscanapp.Model.Menus.Option;
+import com.smartscan.app.smartscanapp.Model.Templates.Template;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 

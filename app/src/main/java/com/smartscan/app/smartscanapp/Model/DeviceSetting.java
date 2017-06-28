@@ -1,5 +1,7 @@
 package com.smartscan.app.smartscanapp.Model;
 
+import com.smartscan.app.smartscanapp.Model.Menus.Option;
+
 /**
  * Created by Jack_Allcock on 26/06/2017.
  */

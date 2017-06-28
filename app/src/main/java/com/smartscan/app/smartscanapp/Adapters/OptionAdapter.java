@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.Model.Option;
+import com.smartscan.app.smartscanapp.Model.Menus.Option;
 
 import java.util.ArrayList;
 
@@ -50,6 +50,13 @@ public class OptionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup arg2) {
+
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.option_view_row, null);
+
+        }
         Option option = optionList.get(position);
 
         TextView optionName = (TextView) convertView.findViewById(R.id.option_name);

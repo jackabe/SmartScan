@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.Model;
+package com.smartscan.app.smartscanapp.Model.Menus;
 
 /**
  * Created by Jack_Allcock on 20/06/2017.
@@ -10,22 +10,36 @@ public enum Option {
     IR("Infrared", "Communicate with individual lights and sensors"),
     RF("Radio Frequency", "Communicate to many devices and set scenes"),
 
+    // Menu for IR
+    BASIC("Basic Parameters", ""),
+    DOWNLOAD("Download/Program", ""),
+    ECOMM("Commissioning Emergency", ""),
+    ESENSOR("Commissioning Sensors", ""),
+    DALIDRIVER("DALI Lamp Driver", ""),
+    ESTATUS("Emergency Status", ""),
+    ESMARTSCAN("Smartscan Emergency", ""),
+    SMARTSCANSENSOR("Smartscan Sensors", ""),
+    SMARTTR("Smart TR", ""),
+    SYSTEMTESTS("System Tests", ""),
+    IRREMOTE("IR Remote", ""),
+    MONITORS("Monitors", ""),
+    SCENEPARAM("Scene Param", ""),
+
     // These BELOW are the basic options for IR
+    POWER("Power Up", "Power on or power off"),
     INTENSITY("Intensity", "Alter light level of the light"),
-    TYPE("DSI or DALI", "Choose the method of lighting control"),
+    OUTPUT("DSI or DALI", "Choose the method of lighting control"),
     BURN("Burn In Time", "Off or 100hr"),
     MIN("Min Lamp", "Choose DSI percentage"),
     MOTION("Motion Line", "Choose motion version"),
     HOLD("Hold Overr", "Set to on or off"),
     START("10% Start", "Set to on or off"),
-    POWER("Power Up", "Power on or power off"),
     BRIGHT("Bright-Out", "Set to on or off"),
     PIRSENS("PIR Sensitivity", "Change sensitivity of the sensor"),
-    PIRENABLE("PIR Active", "Enale or disable the sensor"),
+    PIRMODE("PIR Mode", "Enale or disable the sensor"),
     VACANT("If Vacant", "Off / 30s-10h / cont"),
     SEC("Sec. Level", "Change the DSI level"),
     TDELAY("T-Delay", "30s-10h / cont"),
-
 
     // The BELOW are main OPTIONS.
     STATE("Power Options", "Turn on and off, view battery.."),
@@ -42,6 +56,15 @@ public enum Option {
     ENABLE("Enable Fitting", "Enable the functionality of the device"),
     DISABLE("Disable Fitting", "Disable the functionality of the device"),
 
+    // These BELOW are all actions related to PIR SENSITIVITY
+    SENSMAX("Sensitivity Max", ""),
+    SENS5("Sensitivity 5", ""),
+    SENS4("Sensitivity 4", ""),
+    SENS3("Sensitivity 3", ""),
+    SENS2("Sensitivity 2", ""),
+    SENS1("Sensitivity 1", ""),
+    SENSMIN("Sensitivity Min", ""),
+
     // These BELOW are all actions related to SCENES
     SCENESENABLE("Enable Scene Commands", "Switch to send commands via the RF TR PCB"),
     SCENE1("Scene 1", "Change light to scene 1"),
@@ -54,6 +77,11 @@ public enum Option {
     GROUP("Change The Group Address", "Give a device a group"),
 
     // These BELOW are all actions for templates
+    TEMPLATEPOWER("Turn on device", "Switching this will turn on and off the fitting"),
+    TEMPLATEENABLED("Enable Device", "Switching this will enable and disable the device"),
+
+    // The BELOW are all related to Light Level Delay Time
+
     TEMPLATEPOWER("Turn on device", "Switching this will turn on and off the fitting"),
     TEMPLATEENABLED("Enable Device", "Switching this will enable and disable the device");
 

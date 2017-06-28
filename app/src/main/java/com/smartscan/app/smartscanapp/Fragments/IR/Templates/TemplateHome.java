@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.Fragments;
+package com.smartscan.app.smartscanapp.Fragments.IR.Templates;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -25,7 +25,7 @@ import com.smartscan.app.smartscanapp.Adapters.TemplatesViewAdapter;
 import com.smartscan.app.smartscanapp.Database.DBConnector;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.Model.Template;
+import com.smartscan.app.smartscanapp.Model.Templates.Template;
 
 import java.util.ArrayList;
 import java.util.Random;

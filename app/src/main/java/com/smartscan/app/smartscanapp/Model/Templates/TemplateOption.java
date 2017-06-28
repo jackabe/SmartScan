@@ -1,6 +1,7 @@
-package com.smartscan.app.smartscanapp.Model;
+package com.smartscan.app.smartscanapp.Model.Templates;
 
-import java.util.ArrayList;
+import com.smartscan.app.smartscanapp.Model.DataCommand;
+import com.smartscan.app.smartscanapp.Model.Menus.Option;
 
 /**
  * Created by Jack_Allcock on 26/06/2017.

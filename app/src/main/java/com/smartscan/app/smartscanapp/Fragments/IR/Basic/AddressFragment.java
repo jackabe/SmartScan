@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.Fragments;
+package com.smartscan.app.smartscanapp.Fragments.IR.Basic;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -16,18 +16,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smartscan.app.smartscanapp.ConnectThread;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.Adapters.OptionAdapter;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.Model.Control;
-import com.smartscan.app.smartscanapp.Model.Option;
+import com.smartscan.app.smartscanapp.Model.Menus.Control;
+import com.smartscan.app.smartscanapp.Model.Menus.Option;
 import com.smartscan.app.smartscanapp.Model.SendData;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**

@@ -21,10 +21,10 @@ import com.smartscan.app.smartscanapp.Adapters.DrawerItemCustomAdapter;
 import com.smartscan.app.smartscanapp.Fragments.DeviceFragment;
 import com.smartscan.app.smartscanapp.Fragments.MainFragment;
 import com.smartscan.app.smartscanapp.Fragments.ScanFragment;
-import com.smartscan.app.smartscanapp.Fragments.StatusTextFragment;
-import com.smartscan.app.smartscanapp.Fragments.TemplateHome;
+import com.smartscan.app.smartscanapp.Fragments.IR.StatusTextFragment;
+import com.smartscan.app.smartscanapp.Fragments.IR.Templates.TemplateHome;
 import com.smartscan.app.smartscanapp.Model.ObjectDrawerItem;
-import com.smartscan.app.smartscanapp.Model.Template;
+import com.smartscan.app.smartscanapp.Model.Templates.Template;
 
 import java.io.IOException;
 import java.util.ArrayList;

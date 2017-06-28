@@ -1,6 +1,7 @@
-package com.smartscan.app.smartscanapp.Model;
+package com.smartscan.app.smartscanapp.Model.Messages;
 
-import android.util.Log;
+import com.smartscan.app.smartscanapp.Model.Messages.MessageSystem;
+import com.smartscan.app.smartscanapp.Model.Messages.TemplateMessageSystem;
 
 import de.greenrobot.event.EventBus;
 

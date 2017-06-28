@@ -13,7 +13,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
-import com.smartscan.app.smartscanapp.Model.DeviceMessageListener;
+import com.smartscan.app.smartscanapp.Model.Messages.DeviceMessageListener;
 
 import org.json.JSONObject;
 

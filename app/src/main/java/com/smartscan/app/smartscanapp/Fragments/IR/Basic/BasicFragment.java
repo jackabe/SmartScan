@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.Fragments;
+package com.smartscan.app.smartscanapp.Fragments.IR.Basic;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -14,26 +14,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.smartscan.app.smartscanapp.Adapters.BasicIRSettings;
+import com.smartscan.app.smartscanapp.ConnectThread;
+import com.smartscan.app.smartscanapp.Fragments.RF.ScenesFragment;
 import com.smartscan.app.smartscanapp.MainActivity;
-import com.smartscan.app.smartscanapp.Adapters.OptionAdapter;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.Model.Control;
-import com.smartscan.app.smartscanapp.Model.Option;
+import com.smartscan.app.smartscanapp.Model.Menus.Control;
+import com.smartscan.app.smartscanapp.Model.Menus.Option;
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TypeFragment extends Fragment {
+public class BasicFragment extends Fragment {
 
     private Fragment mFragment;
     private ListView optionListView;
     private Control control;
-    private OptionAdapter adapter;
+    private BasicIRSettings adapter;
     private Option option;
     ArrayList<Option>options;
+    private ConnectThread connectThread;
 
-    public TypeFragment() {
+    public BasicFragment() {
     }
 
     @Override
@@ -49,12 +53,14 @@ public class TypeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         super.onActivityCreated(savedInstanceState);
 
-        optionListView = (ListView) getActivity().findViewById(R.id.optionListView);
+        connectThread = ((MainActivity)getActivity()).getConnection();
 
+        optionListView = (ListView) getActivity().findViewById(R.id.optionListView);
         control = new Control();
         options = control.populateBasicIR();
-        adapter = new OptionAdapter(
-                getActivity().getApplicationContext(), options);
+
+        adapter = new BasicIRSettings(
+                getActivity().getApplicationContext(), options, connectThread);
         optionListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -63,16 +69,16 @@ public class TypeFragment extends Fragment {
 
                 option = options.get(position);
                 switch (option) {
-                    case STATE:
+                    case POWER:
                         mFragment = new PowerFragment();
                         attachFragment();
                         break;
-                    case SCENES:
-                        mFragment = new ScenesFragment();
+                    case PIRMODE:
+                        mFragment = new PIRMode();
                         attachFragment();
                         break;
-                    case ADDRESSES:
-                        mFragment = new AddressFragment();
+                    case PIRSENS:
+                        mFragment = new PIRSensitivity();
                         attachFragment();
                         break;
                     default:
@@ -81,17 +87,14 @@ public class TypeFragment extends Fragment {
             }
         });
 
-        if (!((MainActivity) getActivity()).isConnected()) {
-            ((MainActivity)getActivity()).connectToDevice();
-        }
     }
 
     // Our custom method to attach/replace Fragments
     private void attachFragment() {
         if (mFragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment, "type")
-                    .addToBackStack("type").commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, mFragment, "basic")
+                    .addToBackStack("basic").commit();
 
         } else {
             Log.e("MainActivity", "Error in creating fragment");

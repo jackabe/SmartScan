@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.smartscan.app.smartscanapp.Database.DBConnector;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.Fragments.TemplateHome;
-import com.smartscan.app.smartscanapp.Model.Template;
+import com.smartscan.app.smartscanapp.Fragments.IR.Templates.TemplateHome;
+import com.smartscan.app.smartscanapp.Model.Templates.Template;
 
 import java.util.ArrayList;
 

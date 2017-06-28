@@ -1,4 +1,4 @@
-package com.smartscan.app.smartscanapp.Fragments;
+package com.smartscan.app.smartscanapp.Fragments.IR.Templates;
 
 /**
  * Created by Jack_Allcock on 15/06/2017.
@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,16 +24,15 @@ import com.smartscan.app.smartscanapp.Database.DBConnector;
 import com.smartscan.app.smartscanapp.MainActivity;
 import com.smartscan.app.smartscanapp.Model.CommandHandler;
 import com.smartscan.app.smartscanapp.Model.DataCommand;
-import com.smartscan.app.smartscanapp.Model.DeviceMessageListener;
+import com.smartscan.app.smartscanapp.Model.Messages.DeviceMessageListener;
 import com.smartscan.app.smartscanapp.Model.DeviceSetting;
-import com.smartscan.app.smartscanapp.Model.MessageSystem;
 import com.smartscan.app.smartscanapp.Model.SendCommand;
-import com.smartscan.app.smartscanapp.Model.TemplateMessageSystem;
-import com.smartscan.app.smartscanapp.Model.TemplateOption;
+import com.smartscan.app.smartscanapp.Model.Messages.TemplateMessageSystem;
+import com.smartscan.app.smartscanapp.Model.Templates.TemplateOption;
 import com.smartscan.app.smartscanapp.R;
-import com.smartscan.app.smartscanapp.Model.Control;
-import com.smartscan.app.smartscanapp.Model.Option;
-import com.smartscan.app.smartscanapp.Model.Template;
+import com.smartscan.app.smartscanapp.Model.Menus.Control;
+import com.smartscan.app.smartscanapp.Model.Menus.Option;
+import com.smartscan.app.smartscanapp.Model.Templates.Template;
 
 import java.util.ArrayList;
 
