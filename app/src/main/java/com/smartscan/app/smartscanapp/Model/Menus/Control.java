@@ -101,7 +101,7 @@ public class Control {
     }
 
     public ArrayList<Option> populateDelayActions() {
-        options.add(Option.DELAY30M);
+        options.add(Option.DELAY30S);
         options.add(Option.DELAY1);
         options.add(Option.DELAY2);
         options.add(Option.DELAY3);

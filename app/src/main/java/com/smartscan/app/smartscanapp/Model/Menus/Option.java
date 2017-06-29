@@ -82,17 +82,17 @@ public enum Option {
     BUILDING("Change The Building Address", "This will set the address for the main building"),
     GROUP("Change The Group Address", "Give a device a group"),
 
-    // These BELOW are all actions for templates
-    DELAY30M("Delay Time 30 Minutes", ""),
-    DELAY1("Delay Time 1 Seconds", ""),
-    DELAY2("Delay Time 2 Seconds", ""),
-    DELAY3("Delay Time 3 Seconds", ""),
-    DELAY5("Delay Time 5 Seconds", ""),
-    DELAY10("Delay Time 10 Seconds", ""),
-    DELAY15("Delay Time 15 Seconds", ""),
-    DELAY20("Delay Time 20 Seconds", ""),
-    DELAY30("Delay Time 30 Seconds", ""),
-    DELAY45("Delay Time 45 Seconds", ""),
+    // The BELOW are all related to Light Level Delay Time
+    DELAY30S("Delay Time 30 Seconds", ""),
+    DELAY1("Delay Time 1 Minutes", ""),
+    DELAY2("Delay Time 2 Minutes", ""),
+    DELAY3("Delay Time 3 Minutes", ""),
+    DELAY5("Delay Time 5 Minutes", ""),
+    DELAY10("Delay Time 10 Minutes", ""),
+    DELAY15("Delay Time 15 Minutes", ""),
+    DELAY20("Delay Time 20 Minutes", ""),
+    DELAY30("Delay Time 30 Minutes", ""),
+    DELAY45("Delay Time 45 Minutes", ""),
     DELAY1H("Delay Time 1 Hour", ""),
     DELAY2H("Delay Time 2 Hours", ""),
     DELAY3H("Delay Time 3 Hours", ""),
@@ -105,8 +105,7 @@ public enum Option {
     DELAY10H("Delay Time 10 Hours", ""),
     DELAYCON("Continuous Time Delay", ""),
 
-    // The BELOW are all related to Light Level Delay Time
-
+    // These BELOW are all actions for templates
     TEMPLATEPOWER("Turn on device", "Switching this will turn on and off the fitting"),
     TEMPLATEENABLED("Enable Device", "Switching this will enable and disable the device");
 

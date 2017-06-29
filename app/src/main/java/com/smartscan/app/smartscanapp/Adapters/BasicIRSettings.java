@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smartscan.app.smartscanapp.ConnectThread;
+import com.smartscan.app.smartscanapp.Model.SendCommand;
 import com.smartscan.app.smartscanapp.Model.SendData;
 import com.smartscan.app.smartscanapp.R;
 import com.smartscan.app.smartscanapp.Model.Menus.Option;
@@ -31,10 +32,13 @@ public class BasicIRSettings extends BaseAdapter {
     private ConnectThread connectThread;
     private SendData dataSender;
 
+    private SendCommand command;
+
     public BasicIRSettings(Context context, ArrayList<Option> list, ConnectThread connectThread) {
         this.context = context;
         this.optionList = list;
         this.connectThread = connectThread;
+        this.command = new SendCommand(connectThread);
     }
 
     @Override
@@ -160,13 +164,13 @@ public class BasicIRSettings extends BaseAdapter {
                         case MIN:
                             hex = Integer.toHexString(seekBar.getProgress());
                             dataSender = new SendData(connectThread);
-                            dataSender.sendData("I1", "12"+hex);
+                            dataSender.sendData("I1", "28"+hex);
                             Toast.makeText(context, "Setting Min Lamp To : " + seekBar.getProgress() + "%", Toast.LENGTH_LONG).show();
                             break;
                         case SEC:
                             hex = Integer.toHexString(seekBar.getProgress());
                             dataSender = new SendData(connectThread);
-                            dataSender.sendData("I1", "12"+hex);
+                            dataSender.sendData("I1", "1F"+hex);
                             Toast.makeText(context, "Setting Sec. Level To : " + seekBar.getProgress() + "%", Toast.LENGTH_LONG).show();
                             break;
                         default:

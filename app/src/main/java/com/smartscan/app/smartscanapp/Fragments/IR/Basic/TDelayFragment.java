@@ -80,34 +80,67 @@ public class TDelayFragment extends Fragment{
 
                 option = actions.get(position);
                 switch (option) {
-                    case SENSMAX:
-                        command.sendCommand(DataCommand.commandSensitivityMax);
-                        Toast.makeText(getActivity().getApplicationContext(), "Setting sensitivity to Max", Toast.LENGTH_SHORT).show();
+                    case DELAY30S:
+                        command.sendCommand(DataCommand.commandDelay30S);
                         break;
-                    case SENS5:
-                        command.sendCommand(DataCommand.commandSensitivity5);
-                        Toast.makeText(getActivity().getApplicationContext(), "Setting sensitivity to 5", Toast.LENGTH_SHORT).show();
+                    case DELAY1:
+                        command.sendCommand(DataCommand.commandDelay1);
                         break;
-                    case SENS4:
-                        command.sendCommand(DataCommand.commandSensitivity4);
-                        Toast.makeText(getActivity().getApplicationContext(), "Setting sensitivity to 4", Toast.LENGTH_SHORT).show();
+                    case DELAY2:
+                        command.sendCommand(DataCommand.commandDelay2);
                         break;
-                    case SENS3:
-                        command.sendCommand(DataCommand.commandSensitivity3);
-                        Toast.makeText(getActivity().getApplicationContext(), "Setting sensitivity to 3", Toast.LENGTH_SHORT).show();
+                    case DELAY3:
+                        command.sendCommand(DataCommand.commandDelay3);
                         break;
-                    case SENS2:
-                        command.sendCommand(DataCommand.commandSensitivity2);
-                        Toast.makeText(getActivity().getApplicationContext(), "Setting sensitivity to 2", Toast.LENGTH_SHORT).show();
+                    case DELAY5:
+                        command.sendCommand(DataCommand.commandDelay5);
                         break;
-                    case SENS1:
-                        command.sendCommand(DataCommand.commandSensitivity1);
-                        Toast.makeText(getActivity().getApplicationContext(), "Setting sensitivity to 1", Toast.LENGTH_SHORT).show();
+                    case DELAY10:
+                        command.sendCommand(DataCommand.commandDelay10);
                         break;
-                    case SENSMIN:
-                        command.sendCommand(DataCommand.commandSensitivityMin);
-                        Toast.makeText(getActivity().getApplicationContext(), "Setting sensitivity to Min", Toast.LENGTH_SHORT).show();
+                    case DELAY20:
+                        command.sendCommand(DataCommand.commandDelay20);
                         break;
+                    case DELAY30:
+                        command.sendCommand(DataCommand.commandDelay30);
+                        break;
+                    case DELAY45:
+                        command.sendCommand(DataCommand.commandDelay45);
+                        break;
+                    case DELAY1H:
+                        command.sendCommand(DataCommand.commandDelay1H);
+                        break;
+                    case DELAY2H:
+                        command.sendCommand(DataCommand.commandDelay2H);
+                        break;
+                    case DELAY3H:
+                        command.sendCommand(DataCommand.commandDelay3H);
+                        break;
+                    case DELAY4H:
+                        command.sendCommand(DataCommand.commandDelay4H);
+                        break;
+                    case DELAY5H:
+                        command.sendCommand(DataCommand.commandDelay5H);
+                        break;
+                    case DELAY6H:
+                        command.sendCommand(DataCommand.commandDelay6H);
+                        break;
+                    case DELAY7H:
+                        command.sendCommand(DataCommand.commandDelay7H);
+                        break;
+                    case DELAY8H:
+                        command.sendCommand(DataCommand.commandDelay8H);
+                        break;
+                    case DELAY9H:
+                        command.sendCommand(DataCommand.commandDelay9H);
+                        break;
+                    case DELAY10H:
+                        command.sendCommand(DataCommand.commandDelay10H);
+                        break;
+                    case DELAYCON:
+                        command.sendCommand(DataCommand.commandDelayCont);
+                        break;
+
                     default:
                         break;
                 }
