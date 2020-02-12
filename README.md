@@ -1,3 +1,3 @@
 # SmartScan
 
-## Application to control light fittings by Infa Red and RF
+## Application to control light fittings by IR and RF
